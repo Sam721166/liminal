@@ -41,6 +41,13 @@ function Login() {
                 className=" absolute  text-white outline-none border-none border-2 mb-10 rounded-xl w-100 h-14 placeholder:text-neutral-600 font-gothic px-5 text-lg "
             />
             </div>
+
+
+            <div>
+                <button className="mt-10 w-110 h-14 bg-lime active:scale-98 rounded-lg font-gothic text-2xl cursor-pointer hover:bg-lime-200 transition-all duration-200 text-black">
+                    Login
+                </button>
+            </div>
         </form>
         
 
