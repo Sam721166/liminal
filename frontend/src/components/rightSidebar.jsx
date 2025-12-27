@@ -3,7 +3,7 @@ import { IoSearchSharp } from "react-icons/io5";
 
 function RightSidebar() {
   return (
-    <div className='bg-neutral-900 w-120 p-7'>
+    <div className='bg-neutral-900 w-120 p-8'>
 
       <div className="relative h-25 flex ">
 
@@ -17,39 +17,48 @@ function RightSidebar() {
       </div>
         
 
-        <div className='w-full h-auto rounded-xl  bg-neutral-800  flex flex-col px-5 py-5 justify-center gap-4'>
+        <div className='w-full h-auto rounded-xl  bg-neutral-800  flex flex-col px-5 py-5 justify-center gap-'>
 
           
-          <h1 className="text-white font-gothic text-xl mb-1">Who to follow</h1>
+          <h1 className="text-white font-gothic text-xl mb-4">Who to follow</h1>
 
 
-            <div className="flex gap-4 p-3  bg-lime  rounded-lg h-19 w-full items-center cursor-pointer hover:bg-lime-200 transition-all duration-200 active:scale-99">
+            <div className=" relative flex gap-4 p-3  h-19 w-full items-center cursor-pointer transition-all duration-200  border-t-neutral-700 border border-b-0 border-x-0  ">
               <div className="">
                   <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="rounded-full size-12 border-2" />
               </div>
               <div>
-                  <h1 className=" text-md font-gothic text-black">Rix</h1>
+                  <h1 className=" text-md font-gothic text-white">Rix</h1>
                   <p className="text-neutral-500 font-semibold text-xs ">@rixcavella</p>
               </div>
+              <div>
+                <p className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic bg-lime  rounded-lg px-3 py-1 hover:bg-lime-200 cursor-pointer active:scale-98">Follow</p>
+              </div>
             </div>
 
-            <div className="flex gap-4 p-3  bg-lime  rounded-lg h-19 w-full items-center cursor-pointer hover:bg-lime-200 transition-all duration-200 active:scale-99">
+            <div className=" relative flex gap-4 p-3  h-19 w-full items-center cursor-pointer transition-all duration-200  border-t-neutral-700 border border-b-0 border-x-0  ">
               <div className="">
                   <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="rounded-full size-12  border-2" />
               </div>
               <div>
-                  <h1 className=" text-md font-gothic text-black">David</h1>
+                  <h1 className=" text-md font-gothic text-white">David</h1>
                   <p className="text-neutral-500 font-semibold text-xs ">@davidson</p>
               </div>
+              <div>
+                <p className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic bg-lime  rounded-lg px-3 py-1 hover:bg-lime-200 cursor-pointer  active:scale-98">Follow</p>
+              </div>
             </div>
 
-            <div className="flex gap-4 p-3  bg-lime  rounded-lg h-19 w-full items-center cursor-pointer hover:bg-lime-200 transition-all duration-200 active:scale-99">
+            <div className="relative flex gap-4 p-3  h-19 w-full items-center cursor-pointer  transition-all duration-200  border-t-neutral-700 border border-b-0 border-x-0 ">
               <div className="">
                   <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="rounded-full size-12  border-2" />
               </div>
               <div>
-                  <h1 className=" text-md font-gothic text-black">Max</h1>
+                  <h1 className=" text-md font-gothic text-white">Max</h1>
                   <p className="text-neutral-500 font-semibold text-xs ">@maxson</p>
+              </div>
+              <div>
+                <p className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic bg-lime  rounded-lg px-3 py-1 hover:bg-lime-200 cursor-pointer  active:scale-98">Follow</p>
               </div>
             </div>
 

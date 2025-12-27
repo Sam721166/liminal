@@ -21,13 +21,13 @@ function Feed() {
         <h1 className="text-white text-2xl font-gothic pl-5">Feeds</h1>
 
         <div className=" flex gap-5 font-gothic text-sm pr-5">
-          <p className="text-white cursor-pointer">For you</p>
+          <p className="text-white cursor-pointer underline underline-offset-19 decoration-lime">For you</p>
           <p className="text-neutral-500 cursor-pointer">Following</p>
         </div>
       </div>
 
 
-      <div className="h-40 w-full border border-x-0 border-t-0 border-b-neutral-700 text-white px-5 flex flex-col justify-between pb-5">
+      <div className="h-40 w-full border border-x-0 border-t-0 border-b-neutral-700 text-white px-5 flex flex-col justify-between pb-5 ">
 
         <div className="flex  gap-5 items-center ">
           <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="rounded-full size-10 " />
@@ -50,17 +50,20 @@ function Feed() {
 
 
 
-      <div className="p-5 pb-4 break-all border-b-neutral-700 border ">
+      <div className="p-5 pb-4 break-all border-b-neutral-700 border">
         <div className="text-white">
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-1 items-start">
             <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="size-10 rounded-full " />
 
-            <h1 className="font-gothic text-lg ml-2">Sam</h1>
-            <p className="text-neutral-500 text-sm font-semibold">@samirande_</p>
-            <p className="text-neutral-500 text-sm ">. 1m</p>
+            <div className="flex gap-1 -mt-1">
+              <h1 className="font-gothic text-md ml-2 ">Sam</h1>
+              <p className="text-neutral-500 text-sm mt-0.5">@samirande_</p>
+              <p className="text-neutral-500 text-xs mt-1.5">. 1m</p>
+            </div>
+            
           </div>
 
-          <div className="-mt-2 ml-13  ">
+          <div className="-mt-5 ml-13  ">
             <p>Hey there I'm Sam</p>
           </div>
 
