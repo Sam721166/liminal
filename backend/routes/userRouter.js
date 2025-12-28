@@ -143,5 +143,33 @@ userRouter.put("/bookmark/:id", async (req, res) => {
 
 
 
+// follow & unfollow
+userRouter.put("/follow/:id", async (req, res) => {
+    try{
+        const loggedInUserId = req.body.id
+        const userId = req.params.id
+        const loggedInUser = await userModel.findById(loggedInUserId)
+        const user = await userModel.findById(userId)
+        if(!user.followers.includes(loggedInUserId)){
+            await userModel.findByIdAndUpdate(userId, {$push:{followers:loggedInUserId}})
+            await userModel.findByIdAndUpdate(loggedInUserId, {$push:{following:userId}})
+            return res.json({
+                msg: `${loggedInUser.name} just followed to ${user.name}`
+            })
+        } else{
+            await userModel.findByIdAndUpdate(userId, {$pull:{followers:loggedInUserId}})
+            await userModel.findByIdAndUpdate(loggedInUserId, {$pull:{following:userId}})
+            return res.json({
+            msg: `${loggedInUser.name} just unfollowed to ${user.name}`
+            })
+        }
+    } catch(err){
+        console.log("error while follow", err);
+    }
+})
+
+
+
+
 
 export default userRouter

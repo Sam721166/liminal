@@ -89,5 +89,23 @@ tweetRouter.put("/like/:id", async (req, res) => {
 
 
 
+tweetRouter.get("/alltweets/:id", async (req, res) => {
+    try{
+        const id = req.params.id
+        const loggedInUser = await userModel.findById(id)
+        const loggedInUserTweet = await tweetModel.find({userId:id})
+        const followingTweets = await Promise.all(loggedInUser.following.map((otherUsersId) => {
+            return tweetModel.find({userId:otherUsersId})
+        }))
+        return res.json({
+            tweet: loggedInUserTweet.concat(...followingTweets)
+        })
+    } catch(err){
+        console.log("error while getting all tweets", err)
+    }
+})
+
+
+
 
 export default tweetRouter
