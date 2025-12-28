@@ -6,12 +6,29 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-
+/* left sidebar menu */
 @custom-variant home (&:where(.home, .home *));
 @custom-variant explore (&:where(.explore, .explore *));
 @custom-variant notification (&:where(.notification, .notification *));
 @custom-variant profile (&:where(.profile, .profile *));
 @custom-variant bookmark (&:where(.bookmark, .bookmark *));
+@custom-variant settings (&:where(.settings, .settings *));
+
+
+
+/* color theme */
+@custom-variant lime (&:where(.lime, .lime *));
+@custom-variant yellow (&:where(.yellow, .yellow *));
+@custom-variant indigo (&:where(.indigo, .indigo *));
+@custom-variant red (&:where(.red, .red *));
+@custom-variant rose (&:where(.rose, .rose *));
+@custom-variant orange (&:where(.orange, .orange *));
+@custom-variant purple (&:where(.purple, .purple *));
+
+
+
+
+
 
 
 @theme{
@@ -23,6 +40,12 @@
 
 @theme{
     --color-lime: oklch(0.897 0.196 126.665);
+    --color-yellow: oklch(0.945 0.129 101.54);
+    --color-indigo: oklch(0.894 0.057 293.283);
+    --color-red: oklch(0.704 0.191 22.216);
+    --color-rose:  oklch(0.712 0.194 13.428);
+    --color-orange: oklch(0.837 0.128 66.29);
+    --color-purple: oklch(0.827 0.119 306.383);
 }
 
 

@@ -21,6 +21,12 @@ userRouter.post("/signup", async (req, res) => {
                 msg: "User already exist"
             })
         }
+        const preUsername = await userModel.findOne({username})
+        if(preUsername){
+            return res.json({
+                msg: "username is already taken, use different usernames"
+            })
+        }
 
         const hash = await bcrypt.hash(password, 10)
         await userModel.create({
@@ -78,6 +84,64 @@ userRouter.post("/logout", (req, res) => {
         msg: "logout successful"
     })
 })
+
+
+// get my profile
+userRouter.get("/read/:id", async (req, res) => {
+    try{
+        const id = req.params.id
+        const user = await userModel.findById(id)
+        return res.json(user)
+    } catch(err){
+        console.log("error while getting profile", err);
+    }
+})
+
+
+
+// get other profile
+userRouter.get("/otheruser/:id", async (req, res) => {
+    try{
+        const userId = req.params.id
+        const otherUser = await userModel.find({_id:{$ne:userId}}).select("-password")
+        if(!otherUser){
+            return res.json({
+                msg: "currently other users"
+            })
+        }
+        return res.json(otherUser)
+    } catch(err){
+        console.log("error while getting other all profile", err);
+    }
+})
+
+
+
+// bookmark tweet
+userRouter.put("/bookmark/:id", async (req, res) => {
+    try{
+        const loggedInUser = req.body.id
+        const tweetId = req.params.id
+        const user = await userModel.findById(loggedInUser)
+        if(user.bookmark.includes(tweetId)){
+            // not bookmark
+            await userModel.findByIdAndUpdate(loggedInUser, {$pull:{bookmark:tweetId}})
+            return res.json({
+                msg: "User not bookmarked your post"
+            })
+        } else{
+            // bookmark
+            await userModel.findByIdAndUpdate(loggedInUser, {$push:{bookmark:tweetId}})
+            return res.json({
+                msg: "User bookmarked your post"
+            })
+        }
+    } catch(err){
+        console.log("error while bookmark a tweet", err);
+    }
+})
+
+
 
 
 export default userRouter

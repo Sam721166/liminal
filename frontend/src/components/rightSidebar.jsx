@@ -3,7 +3,7 @@ import { IoSearchSharp } from "react-icons/io5";
 
 function RightSidebar() {
   return (
-    <div className='bg-neutral-900 w-120 p-8'>
+    <div className='bg-neutral-900 w-120 p-8 pr-12'>
 
       <div className="relative h-25 flex ">
 
@@ -32,7 +32,7 @@ function RightSidebar() {
                   <p className="text-neutral-500 font-semibold text-xs ">@rixcavella</p>
               </div>
               <div>
-                <p className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic bg-lime  rounded-lg px-3 py-1 hover:bg-lime-200 cursor-pointer active:scale-98">Follow</p>
+                <p className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic rounded-lg px-3 py-1 bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200   cursor-pointer active:scale-98">Follow</p>
               </div>
             </div>
 
@@ -45,7 +45,7 @@ function RightSidebar() {
                   <p className="text-neutral-500 font-semibold text-xs ">@davidson</p>
               </div>
               <div>
-                <p className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic bg-lime  rounded-lg px-3 py-1 hover:bg-lime-200 cursor-pointer  active:scale-98">Follow</p>
+                <p className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic rounded-lg px-3 py-1 bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200   cursor-pointer  active:scale-98">Follow</p>
               </div>
             </div>
 
@@ -58,7 +58,7 @@ function RightSidebar() {
                   <p className="text-neutral-500 font-semibold text-xs ">@maxson</p>
               </div>
               <div>
-                <p className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic bg-lime  rounded-lg px-3 py-1 hover:bg-lime-200 cursor-pointer  active:scale-98">Follow</p>
+                <p className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic  rounded-lg px-3 py-1 bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200  cursor-pointer  active:scale-98">Follow</p>
               </div>
             </div>
 

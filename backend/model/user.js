@@ -26,7 +26,15 @@ const userSchema = mongoose.Schema({
     following: {
         type: Array,
         default: []
-    }
+    },
+    bookmark: {
+        type: Array,
+        default: [],
+    },
+    tweetId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "tweet"
+    }]
 
 }, {timestamps: true})
 

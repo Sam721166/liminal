@@ -21,7 +21,7 @@ function Feed() {
         <h1 className="text-white text-2xl font-gothic pl-5">Feeds</h1>
 
         <div className=" flex gap-5 font-gothic text-sm pr-5">
-          <p className="text-white cursor-pointer underline underline-offset-19 decoration-lime">For you</p>
+          <p className="text-white cursor-pointer underline underline-offset-19  decoration-lime lime:decoration-lime yellow:decoration-yellow indigo:decoration-indigo red:decoration-red rose:decoration-rose orange:decoration-orange purple:decoration-purple">For you</p>
           <p className="text-neutral-500 cursor-pointer">Following</p>
         </div>
       </div>
@@ -38,10 +38,10 @@ function Feed() {
         <div className="flex justify-between items-center ">
 
           <div className="hover:bg-lime-400/10 size-9 transition-all duration-100 cursor-pointer flex justify-center items-center rounded-full ">
-            <LuImagePlus className="size-5 text-lime " />
+            <LuImagePlus className="size-5 text-lime lime:text-lime yellow:text-yellow indigo:text-indigo red:text-red rose:text-rose orange:text-orange purple:text-purple " />
           </div>
 
-          <div className="py-2 px-3 cursor-pointer hover:bg-lime-200 bg-lime rounded-lg transition-all duration-100 ">
+          <div className="py-2 px-3 cursor-pointer bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200  rounded-lg transition-all duration-100 ">
             <p className="text-black font-gothic">Post</p>
           </div>
 
@@ -68,8 +68,9 @@ function Feed() {
           </div>
 
           <div className="flex justify-between mt-4 mx-13">
-            <div className="size-9 flex justify-center items-center cursor-pointer hover:bg-lime/10 rounded-full transition-all duration-100">
-              <FaRegComment className="size-5 text-lime "/>
+            <div className="size-9 flex justify-center items-center cursor-pointer hover:lime/10 lime:hover:bg-lime/10 orange:hover:bg-orange/10 indigo:hover:bg-indigo/10 rose:hover:bg-rose/10 red:hover:bg-red/10 yellow:hover:bg-yellow/10 purple:hover:bg-purple/10 rounded-full transition-all duration-100">
+              <FaRegComment className="size-5  text-lime lime:text-lime yellow:text-yellow indigo:text-indigo red:text-red rose:text-rose orange:text-orange purple:text-purple
+              "/>
             </div>
             
             <div onClick={() => setLike(like => !like)} className={`size-9 flex justify-center items-center cursor-pointer hover:bg-red-500/10 rounded-full transition-all duration-100 group `}>
