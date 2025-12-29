@@ -12,7 +12,8 @@ const tweetSchema = mongoose.Schema({
     userId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
-    },]
+    }],
+    userDetails: [],
 
 }, {timestamps: true})
 

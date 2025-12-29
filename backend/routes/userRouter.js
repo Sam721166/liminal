@@ -11,20 +11,23 @@ userRouter.post("/signup", async (req, res) => {
         const {name, username, email, password} = req.body
 
         if(!name || !username || !email || !password){
-            return res.json({
-                msg: "All field are required"
+            return res.status(400).json({
+                success:false,
+                message: "All field are required"
             })
         }
         const user = await userModel.findOne({email})
         if(user){
-            return res.json({
-                msg: "User already exist"
+            return res.status(409).json({
+                message: "User already exist",
+                success: false
             })
         }
         const preUsername = await userModel.findOne({username})
         if(preUsername){
-            return res.json({
-                msg: "username is already taken, use different usernames"
+            return res.status(409).json({
+                success: false,
+                message: "username is already taken, use different usernames"
             })
         }
 
@@ -37,8 +40,9 @@ userRouter.post("/signup", async (req, res) => {
         })
         const token = jwt.sign({email: req.body.email}, process.env.JWT_SECRET)
         res.cookie("token", token)
-        return res.json({
-            msg: "Account created successfully"
+        return res.status(201).json({
+            success: true,
+            message: "Account created successfully"
         })
     } catch(err){
         console.log("error while creating account", err);
@@ -50,27 +54,31 @@ userRouter.post("/signup", async (req, res) => {
 userRouter.post("/login", async (req, res) => {
 const {email, password} = req.body
     if(!email || !password){
-        return res.json({
-            msg: "All field are required",
+        return res.status(400).json({
+            message: "All field are required",
             success: false
         })
     }
     const user = await userModel.findOne({email})
     if(!user){
-        return res.json({
-            msg: "User doesn't exist"
+        return res.status(404).json({
+            success: false,
+            message: "User doesn't exist"
         })
     }
     bcrypt.compare(password, user.password, (err, result) => {
         if(result){
             const token = jwt.sign({email}, process.env.JWT_SECRET, {expiresIn:"1d"})
             res.cookie("token", token, {expiresIn:"1d"})
-            return res.json({
-                msg: `Login successful, wellcome back ${user.name}`
+            return res.status(200).json({
+                success: true,
+                user: user,
+                message: `Login successful, wellcome back ${user.name}`
             })
         } else{
-            return res.json({
-                msg: "Wrong password"
+            return res.status(401).json({
+                success: false,
+                message: "Wrong password"
             })
         }
     })
@@ -80,18 +88,22 @@ const {email, password} = req.body
 // logout
 userRouter.post("/logout", (req, res) => {
     res.cookie("token", "")
-    return res.json({
-        msg: "logout successful"
+    return res.status(200).json({
+        success: true,
+        message: "logout successful"
     })
 })
 
 
 // get my profile
-userRouter.get("/read/:id", async (req, res) => {
+userRouter.get("/profile/:id", async (req, res) => {
     try{
         const id = req.params.id
         const user = await userModel.findById(id)
-        return res.json(user)
+        return res.status(200).json({
+            success: true,
+            user: user
+        })
     } catch(err){
         console.log("error while getting profile", err);
     }
@@ -105,11 +117,15 @@ userRouter.get("/otheruser/:id", async (req, res) => {
         const userId = req.params.id
         const otherUser = await userModel.find({_id:{$ne:userId}}).select("-password")
         if(!otherUser){
-            return res.json({
-                msg: "currently other users"
+            return res.status(200).json({
+                success: true,
+                message: "currently no other users"
             })
         }
-        return res.json(otherUser)
+        return res.status(200).json({
+            success: true,
+            otherUser: otherUser
+        })
     } catch(err){
         console.log("error while getting other all profile", err);
     }
@@ -126,14 +142,16 @@ userRouter.put("/bookmark/:id", async (req, res) => {
         if(user.bookmark.includes(tweetId)){
             // not bookmark
             await userModel.findByIdAndUpdate(loggedInUser, {$pull:{bookmark:tweetId}})
-            return res.json({
-                msg: "User not bookmarked your post"
+            return res.status(200).json({
+                success:true,
+                message: "User not bookmarked your post"
             })
         } else{
             // bookmark
             await userModel.findByIdAndUpdate(loggedInUser, {$push:{bookmark:tweetId}})
-            return res.json({
-                msg: "User bookmarked your post"
+            return res.status(200).json({
+                success:true,
+                message: "User bookmarked your post"
             })
         }
     } catch(err){
@@ -153,14 +171,16 @@ userRouter.put("/follow/:id", async (req, res) => {
         if(!user.followers.includes(loggedInUserId)){
             await userModel.findByIdAndUpdate(userId, {$push:{followers:loggedInUserId}})
             await userModel.findByIdAndUpdate(loggedInUserId, {$push:{following:userId}})
-            return res.json({
-                msg: `${loggedInUser.name} just followed to ${user.name}`
+            return res.status(200).json({
+                success:true,
+                message: `${loggedInUser.name} just followed to ${user.name}`
             })
         } else{
             await userModel.findByIdAndUpdate(userId, {$pull:{followers:loggedInUserId}})
             await userModel.findByIdAndUpdate(loggedInUserId, {$pull:{following:userId}})
-            return res.json({
-            msg: `${loggedInUser.name} just unfollowed to ${user.name}`
+            return res.status(200).json({
+                success:true,
+                message: `${loggedInUser.name} just unfollowed to ${user.name}`
             })
         }
     } catch(err){

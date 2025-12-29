@@ -12,13 +12,14 @@ tweetRouter.post("/create", async (req, res) => {
         const {description} = req.body
         const tweet = await tweetModel.create({
             description: description,
-            userId: user._id
+            userId: user._id,
+            userDetails: user
         })
         user.tweetId.push(tweet._id)
         await user.save()
 
-        return res.json({
-            msg: "tweet created successfully",
+        return res.status(200).json({
+            message: "tweet created successfully",
             todo: tweet
         })
 
@@ -32,7 +33,7 @@ tweetRouter.post("/create", async (req, res) => {
 // get tweet 
 tweetRouter.get("/read", async (req, res) => {
     const tweet = await tweetModel.find()
-    return res.json(tweet)
+    return res.status(200).json(tweet)
 })
 
 
@@ -41,8 +42,8 @@ tweetRouter.put("/edit/:id", async (req, res) => {
     const id = req.params.id
     const {description} = req.body
     const tweet = await tweetModel.findByIdAndUpdate(id, req.body, {new: true})
-    return res.json({
-        msg: "tweet updated successfully",
+    return res.status(200).json({
+        message: "tweet updated successfully",
         tweet: tweet
     })
 })
@@ -53,8 +54,8 @@ tweetRouter.delete("/delete/:id", async (req, res) => {
     try{
         const id = req.params.id
         await tweetModel.findByIdAndDelete(id)
-        return res.json({
-            msg: "tweet deleted successfully"
+        return res.status(200).json({
+            message: "tweet deleted successfully"
         })
     } catch(err){
         console.log("error while delete tweet", err);
@@ -71,14 +72,14 @@ tweetRouter.put("/like/:id", async (req, res) => {
         if(tweet.like.includes(loggedInUser)){
             // dislike
             await tweetModel.findByIdAndUpdate(tweetId, {$pull:{like:loggedInUser}})
-            return res.json({
-                msg: "User disliked your post"
+            return res.status(200).json({
+                message: "User disliked your post"
             })
         } else{
             // like
             await tweetModel.findByIdAndUpdate(tweetId, {$push:{like:loggedInUser}})
-            return res.json({
-                msg: "User liked your post"
+            return res.status(200).json({
+                message: "User liked your post"
             })
         }
     } catch(err){
@@ -97,8 +98,9 @@ tweetRouter.get("/alltweets/:id", async (req, res) => {
         const followingTweets = await Promise.all(loggedInUser.following.map((otherUsersId) => {
             return tweetModel.find({userId:otherUsersId})
         }))
-        return res.json({
-            tweet: loggedInUserTweet.concat(...followingTweets)
+        return res.status(200).json({
+            success:true,
+            tweets: loggedInUserTweet.concat(...followingTweets)
         })
     } catch(err){
         console.log("error while getting all tweets", err)

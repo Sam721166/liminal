@@ -1,7 +1,17 @@
 import { IoArrowBack } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import useGetProfile from "../hooks/useGetProfile"
+import { useSelector } from "react-redux"
+import store from "../redux/store"
 
 function Profile() {
+
+    const {user, profile} = useSelector(store => store.user)
+    const {id} = useParams()
+    useGetProfile(id) // custom hook
+
+
+ 
   return (
     <div className='bg-neutral-900 w-160 border-r-neutral-700 border-l-neutral-700 border pt-4 '>
 
@@ -15,8 +25,8 @@ function Profile() {
             </Link>
 
             <div>
-                <h1 className='font-gothic text-lg'>Sam</h1>
-                <p className='text-neutral-500'>20 posts</p>
+                <h1 className='font-gothic text-lg'>{profile?.name}</h1>
+                <p className='text-neutral-500'>{profile?.tweetId.length} posts</p>
             </div>
         </div>
 
@@ -35,8 +45,8 @@ function Profile() {
         </div>
 
         <div className="text-white px-5 py-2 border-b-neutral-700 border border-t-0 border-x-0 pb-5">
-            <h1 className="font-gothic text-2xl ">Sam</h1>
-            <p className="text-neutral-400">@samirande_</p>
+            <h1 className="font-gothic text-2xl ">{profile?.name}</h1>
+            <p className="text-neutral-400">@{profile?.username}</p>
 
             <p className="mt-5">18. learning cool stuffs</p>
         </div>

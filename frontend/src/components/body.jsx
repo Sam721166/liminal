@@ -17,7 +17,7 @@ function Body() {
 
           <Route element={<Home />} >
             <Route path='/' element={<Feed />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile />} />
             <Route path='/settings' element={<Settings />} />
           </Route>
 

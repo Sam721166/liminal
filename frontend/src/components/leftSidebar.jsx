@@ -8,6 +8,7 @@ import { useState } from "react";
 import { IoMdSettings } from "react-icons/io";
 
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux"
 
 
 function LeftSidebar() {
@@ -28,18 +29,21 @@ function LeftSidebar() {
     };
 
 
+    const {user} = useSelector(store => store.user)
+
+
 
   return (
     <div className="bg-neutral-900 w-105 h-screen pl-12 px-8 py-8 flex flex-col gap-2 justify-between ">
 
-        <Link to="/profile">
+        <Link to={`/profile/${user?._id}`}>
             <div onClick={() => setClick("profile")} className="w-full h-27 rounded-xl px-5 flex gap-3 items-center  cursor-pointer mb-4 text-white hover:bg-neutral-700 bg-neutral-800 transition-all duration-100 active:scale-99 ">
                 <div>
                     <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="rounded-full size-18 border-3 border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple" />
                 </div>
                 <div>
-                    <h1 className=" text-2xl font-gothic">Sam</h1>
-                    <p className="text-neutral-500 font-semibold text-sm ">@samirande_</p>
+                    <h1 className=" text-2xl font-gothic">{user?.name}</h1>
+                    <p className="text-neutral-500 font-semibold text-sm ">@{user?.username}</p>
                 </div>
             </div>
         </Link>
@@ -76,7 +80,7 @@ function LeftSidebar() {
         
 
         <div>
-            <Link to="/profile" >
+            <Link to={`/profile/${user?._id}`} >
                 <div onClick={() => handleClick("profile")} className={`  rounded-xl p-5 h-15 flex items-center gap-3 cursor-pointer transition-all duration-200 active:scale-99  border-2 ${click === "profile" ? "bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple  border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple text-black hover:bg-none" : " text-white border-neutral-700  hover:bg-neutral-800 "}`}>
 
                     <MdAccountCircle className="size-8 "/>
@@ -111,7 +115,7 @@ function LeftSidebar() {
         
 
         <div>
-            <Link to="/login" >
+            <Link to={`/login`} >
                 <div className="hover:bg-neutral-700 bg-neutral-800 transition-all duration-100 active:scale-99 rounded-xl p-5 h-16 flex items-center mt-6 gap-3 cursor-pointer">
                     <FiLogOut className="size-8 text-red-500  "/>
                     <h1 className="text-[23px] font-gothic text-red-500"  >Logout</h1>

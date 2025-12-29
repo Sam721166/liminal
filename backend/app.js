@@ -9,6 +9,9 @@ import cookieParser from "cookie-parser"
 
 app.use(cookieParser())
 app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+}))
 
 import dotenv from "dotenv"
 dotenv.config()
