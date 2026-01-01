@@ -6,14 +6,34 @@ import { useState } from "react";
 import { FaHeart } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { use } from "react";
+import { getRefresh } from "../redux/tweetSlice";
 
 function Tweets({tweet}) {
 
     const [like, setLike] = useState(false)
     const [bookmark, setBookmark] = useState(false)
-    
-    
+    const {user} = useSelector(store => store.user)
+    const disptch = useDispatch()
+
+    const likeHandler = async (id) => {
+        try{
+            setLike(like => !like)
+            const res = await axios.put(`/api/tweet/like/${id}`, {id:user?._id}, {
+                withCredentials: true
+            })
+            disptch(getRefresh())
+            
+        } catch(err){
+            console.log("error while liking twet", err);
+        }
+        
+    }
+
+
   return (
     <div className="p-5 pb-4 break-all border-b-neutral-700 border">
         <div className="text-white">
@@ -45,7 +65,7 @@ function Tweets({tweet}) {
             </div>
             
             <div className="flex gap-0.5 items-center">
-                <div onClick={() => setLike(like => !like)} className={`size-9 flex justify-center items-center cursor-pointer hover:bg-red-500/10 rounded-full transition-all duration-100 group `}>
+                <div onClick={() => likeHandler(tweet._id)} className={`size-9 flex justify-center items-center cursor-pointer hover:bg-red-500/10 rounded-full transition-all duration-100 group `}>
 
                     {
                         like ? (

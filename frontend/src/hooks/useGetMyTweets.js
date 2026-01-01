@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllTweets } from "../redux/tweetSlice";
 
 const useGetMyTweets = (id) => {
     const dispatch = useDispatch()
+    const {refresh} = useSelector(store => store.tweets)
     useEffect(() => {
         if (!id) return 
         
@@ -21,7 +22,7 @@ const useGetMyTweets = (id) => {
         }
         fetchMyTweets()
         
-    }, [id, dispatch])
+    }, [id, dispatch, refresh])
     
 }
 

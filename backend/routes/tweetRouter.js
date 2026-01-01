@@ -17,10 +17,12 @@ tweetRouter.post("/create", async (req, res) => {
         })
         user.tweetId.push(tweet._id)
         await user.save()
+        
 
         return res.status(200).json({
+            success: true,
             message: "tweet created successfully",
-            todo: tweet
+            tweet: tweet
         })
 
     } catch(err){
@@ -32,8 +34,11 @@ tweetRouter.post("/create", async (req, res) => {
 
 // get tweet 
 tweetRouter.get("/read", async (req, res) => {
-    const tweet = await tweetModel.find()
-    return res.status(200).json(tweet)
+    const tweets = await tweetModel.find()
+    return res.status(200).json({
+        success: true,
+        tweets: tweets
+    })
 })
 
 
@@ -98,9 +103,11 @@ tweetRouter.get("/alltweets/:id", async (req, res) => {
         const followingTweets = await Promise.all(loggedInUser.following.map((otherUsersId) => {
             return tweetModel.find({userId:otherUsersId})
         }))
+
+
         return res.status(200).json({
             success:true,
-            tweets: loggedInUserTweet.concat(...followingTweets)
+            tweets: loggedInUserTweet.concat(...followingTweets).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         })
     } catch(err){
         console.log("error while getting all tweets", err)
