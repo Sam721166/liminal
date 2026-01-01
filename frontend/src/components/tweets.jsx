@@ -14,14 +14,15 @@ import { getRefresh } from "../redux/tweetSlice";
 
 function Tweets({tweet}) {
 
-    const [like, setLike] = useState(false)
     const [bookmark, setBookmark] = useState(false)
     const {user} = useSelector(store => store.user)
     const disptch = useDispatch()
 
+
+    const isLiked = tweet.like.includes(user?._id)
+
     const likeHandler = async (id) => {
         try{
-            setLike(like => !like)
             const res = await axios.put(`/api/tweet/like/${id}`, {id:user?._id}, {
                 withCredentials: true
             })
@@ -68,7 +69,7 @@ function Tweets({tweet}) {
                 <div onClick={() => likeHandler(tweet._id)} className={`size-9 flex justify-center items-center cursor-pointer hover:bg-red-500/10 rounded-full transition-all duration-100 group `}>
 
                     {
-                        like ? (
+                        isLiked ? (
                         <FaHeart className="size-5 text-red-500 transition-all duration-400 group-active:scale-50" />
                         ) : (
                         <FaRegHeart className="size-5 text-red-500 group-active:scale-50 transition-all duration-500 " /> 
