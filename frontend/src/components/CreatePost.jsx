@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { getRefresh } from "../redux/tweetSlice";
+import { getAllTweets, getRefresh, getIsActive } from "../redux/tweetSlice";
 
 function CreatePost() {
 
@@ -33,36 +33,55 @@ function CreatePost() {
 
 
 
-  return (
-    <div className="h-40 w-full border border-x-0 border-t-0 border-b-neutral-700 text-white px-5 flex flex-col justify-between pb-5 ">
 
-        <form action="">
+  return (
+
+
+
+    <div>
 
         
+        <div className="justify-between flex items-center pb-2 mb-5 border-b-neutral-700 border-t-0 border border-x-0">
+                <h1 className="text-white text-2xl font-gothic pl-5">Feeds</h1>
+        
+                <div className=" flex gap-5 font-gothic text-sm pr-5">
+                  <p className="text-white cursor-pointer underline underline-offset-19  decoration-lime lime:decoration-lime yellow:decoration-yellow indigo:decoration-indigo red:decoration-red rose:decoration-rose orange:decoration-orange purple:decoration-purple">For you</p>
+                  <p className="text-neutral-500 cursor-pointer">Following</p>
+                </div>
+        </div>
 
-            <div className="flex  gap-5 items-center ">
-            <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="rounded-full size-10 " />
+    
+
+        <div className="h-40 w-full border border-x-0 border-t-0 border-b-neutral-700 text-white px-5 flex flex-col justify-between pb-5 ">
+
+            <form action="">
+
+            
+
+                <div className="flex  gap-5 items-center ">
+                <img src="sam2.jpg" alt="" className="rounded-full size-10 " />
 
 
 
-            <input value={description} onChange={(e) => setDescription(e.target.value)}
-            type="text" className=" text-white bg-transparent border-none outline-none" placeholder="What's happening?" />
+                <input value={description} onChange={(e) => setDescription(e.target.value)}
+                type="text" className=" text-white bg-transparent border-none outline-none" placeholder="What's happening?" />
 
 
-            </div>
-
-            <div className="flex justify-between items-center mt-14.5">
-
-                <div className="hover:bg-lime-400/10 size-9 transition-all duration-100 cursor-pointer flex justify-center items-center rounded-full ">
-                    <LuImagePlus className="size-5 text-lime lime:text-lime yellow:text-yellow indigo:text-indigo red:text-red rose:text-rose orange:text-orange purple:text-purple " />
                 </div>
 
-                <div onClick={handleSubmit} className="py-2 px-3 cursor-pointer bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200  rounded-lg transition-all duration-100 ">
-                    <p className="text-black font-gothic">Post</p>
-                </div>
+                <div className="flex justify-between items-center mt-14.5">
 
-            </div>
-        </form>
+                    <div className="hover:bg-lime-400/10 size-9 transition-all duration-100 cursor-pointer flex justify-center items-center rounded-full ">
+                        <LuImagePlus className="size-5 text-lime lime:text-lime yellow:text-yellow indigo:text-indigo red:text-red rose:text-rose orange:text-orange purple:text-purple " />
+                    </div>
+
+                    <div onClick={handleSubmit} className="py-2 px-3 cursor-pointer bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200  rounded-lg transition-all duration-100 ">
+                        <p className="text-black font-gothic">Post</p>
+                    </div>
+
+                </div>
+            </form>
+        </div>
     </div>
   )
 }

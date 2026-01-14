@@ -39,7 +39,7 @@ function LeftSidebar() {
         <Link to={`/profile/${user?._id}`}>
             <div onClick={() => setClick("profile")} className="w-full h-27 rounded-xl px-5 flex gap-3 items-center  cursor-pointer mb-4 text-white hover:bg-neutral-700 bg-neutral-800 transition-all duration-100 active:scale-99 ">
                 <div>
-                    <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="rounded-full size-18 border-3 border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple" />
+                    <img src="sam2.jpg" alt="" className="rounded-full size-18 border-3 border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple" />
                 </div>
                 <div>
                     <h1 className=" text-2xl font-gothic">{user?.name}</h1>

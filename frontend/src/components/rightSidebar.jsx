@@ -31,7 +31,7 @@ function RightSidebar({otherUsers}) {
                 <Link to={`/profile/${user._id}`}>
                   <div key={user?._id} className=" relative flex gap-4 p-3  h-19 w-full items-center cursor-pointer transition-all duration-200  border-t-neutral-700  border border-b-0 border-x-0  hover:bg-neutral-700 hover:rounded-lg">
                     <div className="">
-                        <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="rounded-full size-12 border-2" />
+                        <img src="sam2.jpg" alt="" className="rounded-full size-12 border-2" />
                     </div>
                     <div>
                         <h1 className=" text-md font-gothic text-white">{user?.name}</h1>

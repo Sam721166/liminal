@@ -37,7 +37,7 @@ function Profile() {
 
         <div className="relative px-5 h-20">
             <div>
-                <img src="https://pbs.twimg.com/profile_images/1995869338109444100/i0pfnqSY_400x400.jpg" alt="" className="absolute -top-19 size-38 rounded-full border-3 border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple" />
+                <img src="../public/sam2.jpg" alt="" className="absolute z-2 -top-19 size-38 rounded-full border-3 border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple" />
             </div>
             <div>
                 <p className="absolute right-2 mr-2 mt-4 px-3 py-2 font-gothic text-black bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200 transition-all duration-200 cursor-pointer active:scale-98 rounded-lg text-sm ">Edit Profile</p>

@@ -21,6 +21,18 @@ const useGetMyTweets = (id) => {
             }   
         }
         fetchMyTweets()
+
+        const followingTweets = async () => {
+        const id = user?._id
+            try{
+                const res = await axios.get(`/api/tweet/read/${id}`)
+                dispatch(getAllTweets(res.data.tweet))
+            } catch(err){
+                console.log("error while getting following tweets in frontend");
+            }
+        }
+
+
         
     }, [id, dispatch, refresh])
     
