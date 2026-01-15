@@ -54,7 +54,7 @@ function CreatePost() {
         
        
 
-        <div className="h-40 w-full border border-x-0 border-t-0 border-b-neutral-700 text-white px-5 flex flex-col justify-between pb-5 ">
+        <div className="h-40 w-full border border-x-0 border-t-0  border-b-neutral-700 text-white px-5 flex flex-col justify-between pb-5 mt-5">
 
             <form action="">
 
