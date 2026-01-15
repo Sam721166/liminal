@@ -9,7 +9,9 @@ function CreatePost() {
 
     const [description, setDescription] = useState("")
     const {user} = useSelector(store => store.user)
+    const {isActive} = useSelector(store => store.tweets)
     const dispatch = useDispatch()
+    
 
 
     const handleSubmit =async () => {
@@ -31,6 +33,15 @@ function CreatePost() {
         setDescription("")
     }
 
+    
+    const forYouHandler = () => {
+        dispatch(getIsActive(true))
+    }
+
+    const followingHandler = () => {
+        dispatch(getIsActive(false))
+    }
+
 
 
 
@@ -41,16 +52,7 @@ function CreatePost() {
     <div>
 
         
-        <div className="justify-between flex items-center pb-2 mb-5 border-b-neutral-700 border-t-0 border border-x-0">
-                <h1 className="text-white text-2xl font-gothic pl-5">Feeds</h1>
-        
-                <div className=" flex gap-5 font-gothic text-sm pr-5">
-                  <p className="text-white cursor-pointer underline underline-offset-19  decoration-lime lime:decoration-lime yellow:decoration-yellow indigo:decoration-indigo red:decoration-red rose:decoration-rose orange:decoration-orange purple:decoration-purple">For you</p>
-                  <p className="text-neutral-500 cursor-pointer">Following</p>
-                </div>
-        </div>
-
-    
+       
 
         <div className="h-40 w-full border border-x-0 border-t-0 border-b-neutral-700 text-white px-5 flex flex-col justify-between pb-5 ">
 

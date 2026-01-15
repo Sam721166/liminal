@@ -37,7 +37,7 @@ tweetRouter.get("/read", async (req, res) => {
     const tweets = await tweetModel.find()
     return res.status(200).json({
         success: true,
-        tweets: tweets
+        tweets: tweets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     })
 })
 
@@ -107,7 +107,7 @@ tweetRouter.get("/alltweets/:id", async (req, res) => {
 
         return res.status(200).json({
             success:true,
-            tweets: loggedInUserTweet.concat(...followingTweets).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            tweet: loggedInUserTweet.concat(...followingTweets).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         })
     } catch(err){
         console.log("error while getting all tweets", err)

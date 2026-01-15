@@ -5,7 +5,7 @@ const tweetSlice = createSlice({
     initialState: {
         tweets:[],
         refresh: false,
-        isActice: true,
+        isActive: true,
     },
     reducers:{
         getAllTweets:(state, action) => {
@@ -15,7 +15,7 @@ const tweetSlice = createSlice({
             state.refresh = !state.refresh
         },
         getIsActive:(state, action) => {
-            state.isActice = action.payload
+            state.isActive = action.payload
         },
     }
 })
