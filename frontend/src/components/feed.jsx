@@ -35,10 +35,10 @@ function Feed() {
 
 
   return (
-      <div className="bg-neutral-900 w-160 border-r-neutral-700 border-l-neutral-700 border py-7 h-screen overflow-hidden">
+    <div className="bg-neutral-900 w-160 border-r-neutral-700 border-l-neutral-700 border py-7 h-screen overflow-hidden">
 
 
-         <div className="   justify-between flex items-center pb-2 mb-0 border-b-neutral-700 border-t-0 border border-x-0">
+      <div className="   justify-between flex items-center pb-2 mb-0 border-b-neutral-700 border-t-0 border border-x-0">
                 <h1 className="text-white text-2xl font-gothic pl-5">Feeds</h1>
         
                 <div className=" flex gap-5 font-gothic text-sm pr-5">

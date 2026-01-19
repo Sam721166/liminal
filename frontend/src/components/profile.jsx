@@ -25,8 +25,6 @@ function Profile() {
             console.log("error while follow or unfollow in frontend: ", err);
             toast.error(err.response.data.message)
         }
-        
-
     }
 
 
