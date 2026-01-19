@@ -1,7 +1,6 @@
 import { IoSearchSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
-import store from "../redux/store"
 import axios from "axios";
 import toast from "react-hot-toast";
 import { followingUpdate } from "../redux/userSlice";
@@ -37,7 +36,7 @@ function RightSidebar({otherUsers}) {
 
 
   return (
-    <div className='bg-neutral-900 w-120 p-8 pr-12'>
+    <div className='bg-neutral-900 w-120 p-8 pr-12 no-scrollbar'>
 
       <div className="relative h-25 flex ">
 

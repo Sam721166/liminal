@@ -9,7 +9,6 @@ function CreatePost() {
 
     const [description, setDescription] = useState("")
     const {user} = useSelector(store => store.user)
-    const {isActive} = useSelector(store => store.tweets)
     const dispatch = useDispatch()
     
 
@@ -34,14 +33,6 @@ function CreatePost() {
     }
 
     
-    const forYouHandler = () => {
-        dispatch(getIsActive(true))
-    }
-
-    const followingHandler = () => {
-        dispatch(getIsActive(false))
-    }
-
 
 
 

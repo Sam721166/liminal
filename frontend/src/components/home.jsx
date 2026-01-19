@@ -1,18 +1,28 @@
-
-import { Outlet } from "react-router-dom"
+import { useEffect } from "react"
+import { Outlet, useNavigate } from "react-router-dom"
 import LeftSidebar from "./leftSidebar"
 import RightSidebar from "./rightSidebar"
 import useOtherUser from "../hooks/useOtherUser"
 import { useSelector } from "react-redux"
-import store from "../redux/store"
 import useGetMyTweets from "../hooks/useGetMyTweets"
 
 function Home() {
+
+  const navigate = useNavigate()
+
 
   //custom hook
   const {user, otherUsers} = useSelector(store => store.user)
   useOtherUser(user?._id)
   useGetMyTweets(user?._id)
+
+  useEffect(() => {
+    if(!user){
+      navigate('/login')
+    }
+  }, [])
+
+
 
   return (
     <>

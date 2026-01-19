@@ -94,7 +94,7 @@ tweetRouter.put("/like/:id", async (req, res) => {
 
 
 
-
+// get following tweet
 tweetRouter.get("/alltweets/:id", async (req, res) => {
     try{
         const id = req.params.id
@@ -114,6 +114,23 @@ tweetRouter.get("/alltweets/:id", async (req, res) => {
     }
 })
 
+
+
+// get only my tweet
+tweetRouter.get("/mytweet/:id", async (req, res) => {
+    try{
+        const id = req.params.id
+        const loggedInUser = await userModel.findById(id)
+        const loggedInUserTweet = await tweetModel.find({userId:id})
+
+        return res.status(200).json({
+            success: true,
+            tweet: loggedInUserTweet.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        })
+    } catch(err){
+        console.log("error while getting my tweet: ", err);
+    }
+})
 
 
 

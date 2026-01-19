@@ -1,10 +1,3 @@
-import { LuImagePlus } from "react-icons/lu";
-import { FaRegHeart } from "react-icons/fa";
-import { FaRegComment } from "react-icons/fa";
-import { FaRegBookmark } from "react-icons/fa6";
-import { useState } from "react";
-import { FaHeart } from "react-icons/fa6";
-import { FaBookmark } from "react-icons/fa6";
 import Tweets from "./tweets";
 import CreatePost from "./CreatePost";
 
@@ -55,7 +48,7 @@ function Feed() {
 
 
 
-      <div className="h-screen overflow-y-auto no-scrollbar pb-22">
+      <div className="h-screen overflow-y-auto   pb-22">
         
         <CreatePost />
 

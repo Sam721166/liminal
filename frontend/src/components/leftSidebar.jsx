@@ -6,9 +6,11 @@ import { FaBookmark } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
 import { useState } from "react";
 import { IoMdSettings } from "react-icons/io";
-
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux"
+import { getUser, getOtherUsers, getMyProfile } from "../redux/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux"
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
 function LeftSidebar() {
@@ -30,6 +32,22 @@ function LeftSidebar() {
 
 
     const {user} = useSelector(store => store.user)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+
+    const logoutHandler = async () => {
+        try{
+            const res = await axios.post(`/api/user/logout`)
+            toast.success(res.data.message)
+            dispatch(getUser(null))
+            dispatch(getMyProfile(null))
+            dispatch(getOtherUsers(null))
+            navigate('/login')
+        } catch(err){
+            console.log("error while logout: ", err);
+        }
+    }
 
 
 
@@ -115,12 +133,12 @@ function LeftSidebar() {
         
 
         <div>
-            <Link to={`/login`} >
-                <div className="hover:bg-neutral-700 bg-neutral-800 transition-all duration-100 active:scale-99 rounded-xl p-5 h-16 flex items-center mt-6 gap-3 cursor-pointer">
-                    <FiLogOut className="size-8 text-red-500  "/>
-                    <h1 className="text-[23px] font-gothic text-red-500"  >Logout</h1>
-                </div>
-            </Link>
+           
+            <div onClick={logoutHandler} className="hover:bg-neutral-700 bg-neutral-800 transition-all duration-100 active:scale-99 rounded-xl p-5 h-16 flex items-center mt-6 gap-3 cursor-pointer">
+                <FiLogOut className="size-8 text-red-500  "/>
+                <h1 className="text-[23px] font-gothic text-red-500"  >Logout</h1>
+            </div>
+            
         </div>
 
         
