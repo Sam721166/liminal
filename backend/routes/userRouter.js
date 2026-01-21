@@ -1,6 +1,7 @@
 import express from "express"
 const userRouter = express.Router()
 import userModel from "../model/user.js"
+import tweetModel from "../model/tweet.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
@@ -157,6 +158,25 @@ userRouter.put("/bookmark/:id", async (req, res) => {
     } catch(err){
         console.log("error while bookmark a tweet", err);
     }
+})
+
+userRouter.get("/getbookmark", async (req, res) => {
+    try{
+        const id = req.body.id
+        const user = await userModel.findById(id)
+        const bookmarkedTweets = await tweetModel.find({
+            _id: { $in: user.bookmark }
+        })
+        .populate("userId", "name username")
+
+        return res.status(200).json({
+            success: true,
+            tweet: bookmarkedTweets
+        })
+    } catch (err){
+        console.log("error while get bookmark: ", err);
+    }
+    
 })
 
 

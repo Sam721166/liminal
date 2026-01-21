@@ -12,15 +12,22 @@ import { useDispatch } from "react-redux";
 import { getRefresh } from "../redux/tweetSlice";
 import { MdDeleteOutline } from "react-icons/md";
 import toast from "react-hot-toast";
+import { timeSince } from "../utils/constant";
 
 function Tweets({tweet}) {
 
-    const [bookmark, setBookmark] = useState(false)
+    
     const {user} = useSelector(store => store.user)
     const disptch = useDispatch()
 
 
+    // const isBookmarked = user?.bookmark?.some(
+    //   id => id.toString() === tweet._id
+    // )
+
+
     const isLiked = tweet.like.includes(user?._id)
+    const isBookmarked = user.bookmark.includes(tweet?._id)
 
     const likeHandler = async (id) => {
         try{
@@ -45,6 +52,20 @@ function Tweets({tweet}) {
     }
 
 
+    const bookmarkHandler = async (tweetId) => {
+      try{
+        const res = await axios.put(`/api/user/bookmark/${tweetId}`, {id:user?._id}, {
+          withCredentials: true
+        })
+        toast.success(res.data.message)
+        
+        disptch(getRefresh())
+      } catch (err){
+        console.log("error while bookmark: ", err);
+      }
+    }
+
+
 
   return (
     <div className="p-5 pb-4 break-all border-b-neutral-700 border">
@@ -58,7 +79,7 @@ function Tweets({tweet}) {
                     <div className="flex gap-1 -mt-1">
                     <h1 className="font-gothic text-md ml-2 ">{tweet?.userDetails[0]?.name}</h1>
                     <p className="text-neutral-500 text-sm mt-0.5">@{tweet?.userDetails[0]?.username}</p>
-                    <p className="text-neutral-500 text-xs mt-1.5">. 1m</p>
+                    <p className="text-neutral-500 text-xs mt-1.5">. {timeSince(tweet.createdAt)}</p>
                     </div>
                 </Link>
 
@@ -93,17 +114,21 @@ function Tweets({tweet}) {
                 </div>
             </div>
             
-            
-            <div onClick={() => setBookmark(bookmark => !bookmark)}   className="absolute right-44  size-9 flex justify-center items-center cursor-pointer hover:bg-blue-500/10 rounded-full transition-all duration-100 group ">
+            <div className="">
+              <div  onClick={() => bookmarkHandler(tweet._id)}  className="absolute right-44  size-9 flex justify-center items-center cursor-pointer gap-2 hover:bg-blue-500/10 rounded-full transition-all duration-100 group ">
 
-              {
-                bookmark ? (
-                  <FaBookmark className="size-5 transition-all duration-200 text-blue-500  group-active:scale-90 "/>
-                ) : (
-                  <FaRegBookmark className="size-5  text-neutral-500 group-hover:text-blue-500 transition-all duration-200 group-active:scale-90" />
-                )
-              }
-              
+                {
+                  isBookmarked ? (
+                    <FaBookmark className="size-5 transition-all duration-200 text-blue-500  group-active:scale-90 "/>
+                  ) : (
+                    <FaRegBookmark className="size-5  text-neutral-500 group-hover:text-blue-500 transition-all duration-200 group-active:scale-90" />
+                  )
+                }
+
+
+                
+                
+              </div>
             </div>
             
             {

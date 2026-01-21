@@ -109,14 +109,14 @@ function LeftSidebar() {
 
         
         
-
-        <div>
-            <div onClick={() => handleClick("bookmark")} className={` rounded-xl p-5 h-15 flex items-center  gap-3 cursor-pointer transition-all duration-200 active:scale-99  border-2   ${click === "bookmark" ? "bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple  border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple text-black hover:bg-none" : " border-neutral-700 text-white hover:bg-neutral-800 "}`}>
-                <FaBookmark className="size-5.5 "/>
-                <h1 className="text-[23px] font-gothic"  >Bookmarks</h1>
+        <Link to="/bookmark">
+            <div>
+                <div onClick={() => handleClick("bookmark")} className={` rounded-xl p-5 h-15 flex items-center  gap-3 cursor-pointer transition-all duration-200 active:scale-99  border-2   ${click === "bookmark" ? "bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple  border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple text-black hover:bg-none" : " border-neutral-700 text-white hover:bg-neutral-800 "}`}>
+                    <FaBookmark className="size-5.5 "/>
+                    <h1 className="text-[23px] font-gothic"  >Bookmarks</h1>
+                </div>
             </div>
-        </div>
-
+        </Link>
         
         
         

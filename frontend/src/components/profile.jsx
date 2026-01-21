@@ -9,6 +9,7 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
+import { timeSince } from "../utils/constant";
 
 
 import axios from "axios";
@@ -167,7 +168,7 @@ function Profile() {
                                         <div className="flex gap-1 -mt-1">
                                         <h1 className="font-gothic text-md ml-2 text-white">{tweet?.userDetails[0]?.name}</h1>
                                         <p className="text-neutral-500 text-sm mt-0.5">@{tweet?.userDetails[0]?.username}</p>
-                                        <p className="text-neutral-500 text-xs mt-1.5">. 1m</p>
+                                        <p className="text-neutral-500 text-xs mt-1.5">. {timeSince(tweet.createdAt)}</p>
                                         </div>
                                     
                     
