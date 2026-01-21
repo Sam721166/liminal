@@ -18,26 +18,24 @@ function Tweets({tweet}) {
 
     
     const {user} = useSelector(store => store.user)
+    const {tweets} = useSelector(store => store.tweets)
     const disptch = useDispatch()
 
 
-    // const isBookmarked = user?.bookmark?.some(
-    //   id => id.toString() === tweet._id
-    // )
 
 
     const isLiked = tweet.like.includes(user?._id)
-    const isBookmarked = user.bookmark.includes(tweet?._id)
+    const isBookmarked = user.bookmark.includes(tweets?._id)
 
     const likeHandler = async (id) => {
-        try{
-            const res = await axios.put(`/api/tweet/like/${id}`, {id:user?._id}, {
-                withCredentials: true
-            })
-            disptch(getRefresh())
-        } catch(err){
-            console.log("error while liking tweet", err);
-        }
+      try{
+          const res = await axios.put(`/api/tweet/like/${id}`, {id:user?._id}, {
+              withCredentials: true
+          })
+          disptch(getRefresh())
+      } catch(err){
+          console.log("error while liking tweet", err);
+      }
     }
 
 

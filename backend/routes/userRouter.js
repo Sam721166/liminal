@@ -166,14 +166,14 @@ userRouter.get("/getbookmark/:id", async (req, res) => {
     try{
         const id = req.params.id
         const user = await userModel.findById(id)
-        
+
         const bookmarkedTweets = await tweetModel.find({
             _id: { $in: user.bookmark }
         })
 
         return res.status(200).json({
             success: true,
-            tweet: bookmarkedTweets
+            tweet: bookmarkedTweets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         })
     } catch (err){
         console.log("error while get bookmark: ", err);

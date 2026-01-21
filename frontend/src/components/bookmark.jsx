@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { timeSince } from '../utils/constant'
-
+import toast from 'react-hot-toast'
 
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
@@ -11,15 +11,21 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
-
-
+import { getRefresh } from '../redux/tweetSlice'
+import { useDispatch } from 'react-redux'
 
 function Bookmark() {
 
     const isLiked = (tweet) => tweet.like.includes(user?._id)
+
+    const isBookmarked = (user) => user.bookmark.includes(tweets._id)
+
     const {user} = useSelector(store => store.user)
     const {tweets} = useSelector(store => store.tweets)
     const [bookmarks, setBookmarks] = useState([])
+    const [bookmark, setBookmark] = useState({})
+    const dispatch = useDispatch()
+
 
     useEffect(() => {
       const bookmarkHandler = async () => {
@@ -32,9 +38,27 @@ function Bookmark() {
       }
 
       bookmarkHandler()
-    }, [user])
+    }, [user, tweets])
 
     
+    const bookmarkhandler = async (tweetId) => {
+      try{
+        
+        const res = await axios.put(`/api/user/bookmark/${tweetId}`, {id:user?._id}, {
+          withCredentials: true
+        })
+        toast.success(res.data.message)
+
+        
+
+        dispatch(getRefresh())
+      } catch (err){
+        console.log("error while bookmark: ", err);
+      }
+    }
+
+
+
     const likeHandler = async (id) => {
       try{
           const res = await axios.put(`/api/tweet/like/${id}`, {id:user?._id}, {
@@ -44,7 +68,8 @@ function Bookmark() {
           console.log("error while liking tweet", err);
       }
     }
-    
+
+   
 
   return (
     <div className='w-160 h-screen bg-neutral-900 text-white  border-neutral-700 border border-y-0 '>
@@ -111,7 +136,7 @@ function Bookmark() {
                             <div onClick={() => bookmarkhandler(tweet._id)}   className="absolute right-44  size-9 flex justify-center items-center cursor-pointer hover:bg-blue-500/10 rounded-full transition-all duration-100 group ">
 
                             {
-                                bookmarks[tweet._id] ? (
+                                isBookmarked ? (
                                 <FaBookmark className="size-5 transition-all duration-200 text-blue-500  group-active:scale-90 "/>
                                 ) : (
                                 <FaRegBookmark className="size-5  text-neutral-500 group-hover:text-blue-500 transition-all duration-200 group-active:scale-90" />
