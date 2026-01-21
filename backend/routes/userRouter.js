@@ -160,14 +160,16 @@ userRouter.put("/bookmark/:id", async (req, res) => {
     }
 })
 
-userRouter.get("/getbookmark", async (req, res) => {
+
+// get bookmark tweet
+userRouter.get("/getbookmark/:id", async (req, res) => {
     try{
-        const id = req.body.id
+        const id = req.params.id
         const user = await userModel.findById(id)
+        
         const bookmarkedTweets = await tweetModel.find({
             _id: { $in: user.bookmark }
         })
-        .populate("userId", "name username")
 
         return res.status(200).json({
             success: true,
@@ -176,7 +178,6 @@ userRouter.get("/getbookmark", async (req, res) => {
     } catch (err){
         console.log("error while get bookmark: ", err);
     }
-    
 })
 
 
