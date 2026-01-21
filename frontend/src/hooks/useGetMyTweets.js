@@ -46,7 +46,7 @@ const useGetMyTweets = (id) => {
         }
         
         
-    }, [id, dispatch, refresh, isActive])
+    }, [id, user?.following?.length, refresh, isActive])
     
 }
 

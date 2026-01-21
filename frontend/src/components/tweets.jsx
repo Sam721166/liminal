@@ -10,6 +10,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getRefresh } from "../redux/tweetSlice";
+import { bookmarkUpdate } from "../redux/userSlice";
 import { MdDeleteOutline } from "react-icons/md";
 import toast from "react-hot-toast";
 import { timeSince } from "../utils/constant";
@@ -25,7 +26,11 @@ function Tweets({tweet}) {
 
 
     const isLiked = tweet.like.includes(user?._id)
-    const isBookmarked = user.bookmark.includes(tweets?._id)
+
+    const isBookmarked = (tweetId) => {
+      return user?.bookmark?.includes(tweetId)
+    }
+
 
     const likeHandler = async (id) => {
       try{
@@ -34,7 +39,7 @@ function Tweets({tweet}) {
           })
           disptch(getRefresh())
       } catch(err){
-          console.log("error while liking tweet", err);
+        console.log("error while liking tweet", err);
       }
     }
 
@@ -43,6 +48,7 @@ function Tweets({tweet}) {
       try{
         const res = await axios.delete(`/api/tweet/delete/${id}`)
         toast.success(res.data.message)
+        
         disptch(getRefresh())
       } catch(err){
         console.log("error while del;eting tweet frontend: ", err);
@@ -57,6 +63,7 @@ function Tweets({tweet}) {
         })
         toast.success(res.data.message)
         
+        disptch(bookmarkUpdate(tweetId))
         disptch(getRefresh())
       } catch (err){
         console.log("error while bookmark: ", err);
@@ -116,7 +123,7 @@ function Tweets({tweet}) {
               <div  onClick={() => bookmarkHandler(tweet._id)}  className="absolute right-44  size-9 flex justify-center items-center cursor-pointer gap-2 hover:bg-blue-500/10 rounded-full transition-all duration-100 group ">
 
                 {
-                  isBookmarked ? (
+                  isBookmarked(tweet._id) ? (
                     <FaBookmark className="size-5 transition-all duration-200 text-blue-500  group-active:scale-90 "/>
                   ) : (
                     <FaRegBookmark className="size-5  text-neutral-500 group-hover:text-blue-500 transition-all duration-200 group-active:scale-90" />

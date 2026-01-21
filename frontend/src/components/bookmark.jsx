@@ -13,18 +13,25 @@ import { FaBookmark } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
 import { getRefresh } from '../redux/tweetSlice'
 import { useDispatch } from 'react-redux'
+import { bookmarkUpdate } from '../redux/userSlice'
 
 function Bookmark() {
 
-    const isLiked = (tweet) => tweet.like.includes(user?._id)
+  
 
-    const isBookmarked = (user) => user.bookmark.includes(tweets._id)
 
     const {user} = useSelector(store => store.user)
     const {tweets} = useSelector(store => store.tweets)
     const [bookmarks, setBookmarks] = useState([])
-    const [bookmark, setBookmark] = useState({})
     const dispatch = useDispatch()
+
+    const isLiked = (tweet) => tweet.like.includes(user?._id)
+
+    const isBookmarked = (tweetId) => {
+      return user?.bookmark?.includes(tweetId)
+    }
+
+
 
 
     useEffect(() => {
@@ -49,9 +56,9 @@ function Bookmark() {
         })
         toast.success(res.data.message)
 
-        
-
+        dispatch(bookmarkUpdate(tweetId))
         dispatch(getRefresh())
+
       } catch (err){
         console.log("error while bookmark: ", err);
       }
@@ -61,9 +68,11 @@ function Bookmark() {
 
     const likeHandler = async (id) => {
       try{
-          const res = await axios.put(`/api/tweet/like/${id}`, {id:user?._id}, {
-              withCredentials: true
-          })
+        const res = await axios.put(`/api/tweet/like/${id}`, {id:user?._id}, {
+            withCredentials: true
+        })
+
+        dispatch(getRefresh())
       } catch(err){
           console.log("error while liking tweet", err);
       }
@@ -83,7 +92,7 @@ function Bookmark() {
               ) : (
                 bookmarks.map((tweet) => (
                   
-                  <div className="p-5 pb-4 -mx-5 break-all border-b-neutral-700 border-x-0 border-t-0 borderl">
+                  <div className="p-5 pb-4 -mx-5 break-all border-b-neutral-700 border-x-0 border-t-0 border">
                     <div className="relative text-white">
                         <div className="flex gap-1 items-start">
                             

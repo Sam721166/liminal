@@ -28,10 +28,20 @@ const userSlice = createSlice({
                 // follow
                 state.user.following.push(action.payload)
             }
+        },
+        bookmarkUpdate:(state, action) => {
+            // toggle bookmark
+            if(state.user.bookmark.includes(action.payload)){
+                state.user.bookmark = state.user.bookmark.filter((itemId) => {
+                    return itemId !== action.payload
+                })
+            } else{
+                state.user.bookmark.push(action.payload)
+            }
         }
         
     }
 })
 
-export const {getUser, getOtherUsers, getMyProfile, followingUpdate} = userSlice.actions
+export const {getUser, getOtherUsers, getMyProfile, followingUpdate, bookmarkUpdate} = userSlice.actions
 export default userSlice.reducer

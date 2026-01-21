@@ -6,12 +6,13 @@ import toast from "react-hot-toast";
 import { followingUpdate } from "../redux/userSlice";
 import useGetProfile from "../hooks/useGetProfile";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 
 
 function RightSidebar({otherUsers}) {
 
-
+  const [searchQuery, setSearchQuery] = useState("")
 
   const {user} = useSelector(store => store.user)
   const {id} = useParams()
@@ -32,6 +33,11 @@ function RightSidebar({otherUsers}) {
     }
   }
 
+  const filteredUsers = otherUsers?.filter((user) => 
+    user.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
 
 
 
@@ -45,7 +51,7 @@ function RightSidebar({otherUsers}) {
         <div className="  border-2 border-neutral-700 focus-within:border-lime  lime:focus-within:border-lime yellow:focus-within:border-yellow indigo:focus-within:border-indigo red:focus-within:border-red rose:focus-within:border-rose orange:focus-within:border-orange purple:focus-within:border-purple bg-neutral-800  w-full rounded-xl h-15">
             
 
-            <input placeholder="Search" type="text" className=' absolute left-10 bg-transparent text-white outline-none border-none mb-10 rounded-xl w-95 h-14 placeholder:text-neutral-600 font-gothic px-3 text-lg border-2 '  />
+            <input placeholder="Search" type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className=' absolute left-10 bg-transparent text-white outline-none border-none mb-10 rounded-xl w-95 h-14 placeholder:text-neutral-600 font-gothic px-3 text-lg border-2 '  />
         </div>
       </div>
         
@@ -59,7 +65,7 @@ function RightSidebar({otherUsers}) {
 
           
             {
-              otherUsers?.map((otherUser) => (
+              filteredUsers?.map((otherUser) => (
                 <Link to={`/profile/${otherUser._id}`}>
                   <div key={otherUser?._id} className=" relative flex gap-4 p-3  h-19 w-full items-center cursor-pointer transition-all duration-200  border-t-neutral-700  border border-b-0 border-x-0  hover:bg-neutral-700 hover:rounded-lg">
                     <div className="">
