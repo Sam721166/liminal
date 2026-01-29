@@ -29,6 +29,7 @@ function Profile() {
 
         const [myTweet, setMyTweet] = useState([])
         const [bookmark, setBookmark] = useState({})
+        const [editProfile, setEditProfile] = useState(false)
     
     
         const isLiked = (tweet) => tweet.like.includes(user?._id)
@@ -98,6 +99,9 @@ function Profile() {
 
 
 
+    const editProfileHandler = async () => {
+        setEditProfile(editProfile => !editProfile)
+    }
 
  
   return (
@@ -132,7 +136,7 @@ function Profile() {
             {
                 profile?._id === user?._id ? (
                     <div>
-                        <p className="absolute right-2 mr-2 mt-4 px-3 py-2 font-gothic text-black bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200 transition-all duration-200 cursor-pointer active:scale-98 rounded-lg text-md ">Edit Profile</p>
+                        <p onClick={editProfileHandler} className="absolute right-2 mr-2 mt-4 px-3 py-2 font-gothic text-black bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200 transition-all duration-200 cursor-pointer active:scale-98 rounded-lg text-md ">Edit Profile</p>
                     </div>
                 ) : (
                     <div>
@@ -142,6 +146,52 @@ function Profile() {
                     </div>
                 )
             }
+
+
+
+            {
+                editProfile ? (
+                    <div className="absolute -top-30 right-0 left-5 rounded-lg py-6 px-8 text-white z-40 bg-neutral-800 border-2 border-neutral-700 w-148 h-92 flex flex-col "> 
+
+                        
+                        <div className="flex justify-between mb-7 items-center">
+                            <p className="font-gothic text-lime text-xl">Edit profile</p>
+
+
+                            <div onClick={editProfileHandler} className="flex justify-center items-center bg-red-500/10 hover:bg-red-500/20 p- rounded-full size-6 cursor-pointer transition-all duration-100 -mr-1">
+                            <p className="text-red-500 text-xl absolute top-5.5 font-semibold">
+                                ×
+                                </p> 
+                            </div>
+                        </div>
+                        
+
+
+                        <div className="mb-5">
+                            <p className="font-gothic text-lg mb-2">Name</p>
+                            <input className="border-2 border-neutral-500 rounded-md w-131.5 h-12 outline-none text-white p-2 font-gothic text-md" type="text" />
+                        </div>
+
+                        <div className="mb-7">
+                            <p className="font-gothic text-lg mb-2">username</p>
+                            <input className="border-2 border-neutral-500 rounded-md w-131.5 h-12 outline-none text-white p-2 font-gothic text-md" type="text" />
+                        </div>
+
+                        <div className="flex w-full  justify-end">
+                            <button className="active:scale-98 font-gothic bg-lime px-5 py-1 rounded-md text-black text-lg cursor-pointer hover:bg-lime-200 transition-all duration-100 ">
+                                Save
+                            </button>
+                        </div>
+
+                        
+                    </div>
+                ) : (
+                    <div></div>
+                )
+            }
+            
+
+
                 
 
 

@@ -65,8 +65,12 @@ function CreatePost() {
                 <div className="flex justify-between items-center -mt-6 absolute bottom-30 right-5">
 
                     <div className=" w-full h-full">
-                        <div className="hover:bg-lime-400/10 size-9 transition-all duration-100 cursor-pointer flex justify-center items-center rounded-full ">
-                            <LuImagePlus className="absolute top-26 -left-135 size-5 text-lime lime:text-lime yellow:text-yellow indigo:text-indigo red:text-red rose:text-rose orange:text-orange purple:text-purple " />
+                        <div className="size-9 transition-all duration-100 cursor-pointer flex justify-center items-center rounded-full ">
+                            <LuImagePlus className="absolute top-26 -left-135 size-5 text-lime lime:text-lime yellow:text-yellow indigo:text-indigo red:text-red rose:text-rose orange:text-orange purple:text-purple "  />
+                            
+                            <div className="absolute top-24 -left-137  hover:bg-lime/10 size-9 rounded-full   hover:lime:bg-lime-200/10 hover:yellow:bg-yellow-100/10 hover:indigo:bg-indigo-100/10 hover:red:bg-red-300/10 hover:rose:bg-rose-300/10 hover:orange:bg-orange-200/10 hover:purple:bg-purple-200/10  transition-all duration-100">
+
+                            </div>
                         </div>
 
                         <div onClick={handleSubmit} className="absolute  top-23 right-0 py-2 px-3 cursor-pointer bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200  rounded-lg transition-all duration-100 ">
