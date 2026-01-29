@@ -182,6 +182,49 @@ userRouter.get("/getbookmark/:id", async (req, res) => {
 
 
 
+// edit profile
+userRouter.put("/edit/:id", async (req, res) => {
+    try{
+        const userId = req.params.id
+        const {name, username} = req.body
+
+        if(!name || !username){
+            return res.status(400).json({
+                success: false,
+                message: "Name and username are required"
+            })
+        }
+
+        // Check if username is already taken by another user
+        const existingUser = await userModel.findOne({username, _id: {$ne: userId}})
+        if(existingUser){
+            return res.status(409).json({
+                success: false,
+                message: "Username is already taken"
+            })
+        }
+
+        const updatedUser = await userModel.findByIdAndUpdate(
+            userId,
+            {name, username},
+            {new: true}
+        )
+
+        return res.status(200).json({
+            success: true,
+            user: updatedUser,
+            message: "Profile updated successfully"
+        })
+    } catch(err){
+        console.log("error while editing profile", err);
+        return res.status(500).json({
+            success: false,
+            message: "Error updating profile"
+        })
+    }
+})
+
+
 // follow & unfollow
 userRouter.put("/follow/:id", async (req, res) => {
     try{

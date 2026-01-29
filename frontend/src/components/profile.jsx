@@ -14,7 +14,7 @@ import { timeSince } from "../utils/constant";
 
 import axios from "axios";
 import toast from "react-hot-toast";
-import { followingUpdate } from "../redux/userSlice";
+import { followingUpdate, getUser, getMyProfile } from "../redux/userSlice";
 import { useEffect, useState } from "react";
 import { getRefresh } from "../redux/tweetSlice";
 
@@ -30,6 +30,8 @@ function Profile() {
         const [myTweet, setMyTweet] = useState([])
         const [bookmark, setBookmark] = useState({})
         const [editProfile, setEditProfile] = useState(false)
+        const [editName, setEditName] = useState(profile?.name || "")
+        const [editUsername, setEditUsername] = useState(profile?.username || "")
     
     
         const isLiked = (tweet) => tweet.like.includes(user?._id)
@@ -97,10 +99,39 @@ function Profile() {
     }
     }, [profile?._id]);
 
+    
+
+    useEffect(() => {
+        setEditName(profile?.name || "")
+        setEditUsername(profile?.username || "")
+    }, [profile?.name, profile?.username]);
+
 
 
     const editProfileHandler = async () => {
         setEditProfile(editProfile => !editProfile)
+        setEditName(profile?.name || "")
+        setEditUsername(profile?.username || "")
+    }
+
+    const saveProfileHandler = async () => {
+        try{
+            const res = await axios.put(`/api/user/edit/${user?._id}`, {
+                name: editName,
+                username: editUsername
+            }, {
+                withCredentials: true
+            })
+            toast.success(res.data.message)
+            setEditProfile(false)
+            dispatch(getUser(res.data.user))
+
+            dispatch(getMyProfile(res.data.user))
+            
+        } catch(err){
+            console.log("error while editing profile", err);
+            toast.error(err.response?.data?.message || "Error updating profile")
+        }
     }
 
  
@@ -169,16 +200,16 @@ function Profile() {
 
                         <div className="mb-5">
                             <p className="font-gothic text-lg mb-2">Name</p>
-                            <input className="border-2 border-neutral-500 rounded-md w-131.5 h-12 outline-none text-white p-2 font-gothic text-md" type="text" />
+                            <input value={editName} onChange={(e) => setEditName(e.target.value)} className="border-2 border-neutral-500 rounded-md w-131.5 h-12 outline-none text-white p-2 font-gothic text-md" type="text" />
                         </div>
 
                         <div className="mb-7">
                             <p className="font-gothic text-lg mb-2">username</p>
-                            <input className="border-2 border-neutral-500 rounded-md w-131.5 h-12 outline-none text-white p-2 font-gothic text-md" type="text" />
+                            <input value={editUsername} onChange={(e) => setEditUsername(e.target.value)} className="border-2 border-neutral-500 rounded-md w-131.5 h-12 outline-none text-white p-2 font-gothic text-md" type="text" />
                         </div>
 
                         <div className="flex w-full  justify-end">
-                            <button className="active:scale-98 font-gothic bg-lime px-5 py-1 rounded-md text-black text-lg cursor-pointer hover:bg-lime-200 transition-all duration-100 ">
+                            <button onClick={saveProfileHandler} className="active:scale-98 font-gothic bg-lime px-5 py-1 rounded-md text-black text-lg cursor-pointer hover:bg-lime-200 transition-all duration-100 ">
                                 Save
                             </button>
                         </div>
