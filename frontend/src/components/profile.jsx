@@ -66,6 +66,18 @@ function Profile() {
     }
 
 
+    const deleteHandler = async (id) => {
+        try{
+        const res = await axios.delete(`/api/tweet/delete/${id}`)
+        toast.success(res.data.message)
+        
+        dispatch(getRefresh())
+        mytweet()
+        } catch(err){
+        console.log("error while del;eting tweet frontend: ", err);
+        }
+    }
+
    
 
     const mytweet = async () => {
