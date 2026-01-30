@@ -94,15 +94,10 @@ function Tweets({tweet}) {
             <p>{tweet?.description}</p>
           </div>
 
-          <div className=" flex justify-between mt-4 mx-13">
-            <div className="size-9 flex justify-center items-center cursor-pointer hover:bg-lime/10 lime:hover:bg-lime/10 orange:hover:bg-orange/10 indigo:hover:bg-indigo/10 rose:hover:bg-rose/10 red:hover:bg-red/10 yellow:hover:bg-yellow/10 purple:hover:bg-purple/10 rounded-full transition-all duration-100">
-              <FaRegComment className="size-5  text-lime lime:text-lime yellow:text-yellow indigo:text-indigo red:text-red rose:text-rose orange:text-orange purple:text-purple
-              
-
-              "/>
-            </div>
+          <div className=" flex justify-between mt-4 mb-8 mx-13">
             
-            <div className="absolute left-52 flex gap-0.5 items-center">
+            
+            <div className="absolute left-25 flex gap-0.5 items-center">
                 <div onClick={() => likeHandler(tweet._id)} className={`size-9 flex justify-center items-center cursor-pointer hover:bg-red-500/10 rounded-full transition-all duration-100 group `}>
 
                     {
@@ -120,7 +115,7 @@ function Tweets({tweet}) {
             </div>
             
             <div className="">
-              <div  onClick={() => bookmarkHandler(tweet._id)}  className="absolute right-44  size-9 flex justify-center items-center cursor-pointer gap-2 hover:bg-blue-500/10 rounded-full transition-all duration-100 group ">
+              <div  onClick={() => bookmarkHandler(tweet._id)}  className="absolute right-56  size-9 flex justify-center items-center cursor-pointer gap-2 hover:bg-blue-500/10 rounded-full transition-all duration-100 group ">
 
                 {
                   isBookmarked(tweet._id) ? (

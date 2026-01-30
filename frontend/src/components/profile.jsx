@@ -99,7 +99,7 @@ function Profile() {
     }
     }, [profile?._id]);
 
-    
+
 
     useEffect(() => {
         setEditName(profile?.name || "")
@@ -160,7 +160,7 @@ function Profile() {
 
         <div className="relative px-5 h-20">
             <div>
-                <img src="../public/sam2.jpg" alt="" className="absolute z-2 -top-19 size-38 rounded-full border-3 border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple" />
+                <img src="/sam2.jpg" alt="" className="absolute z-2 -top-19 size-38 rounded-full border-3 border-lime lime:border-lime yellow:border-yellow indigo:border-indigo red:border-red rose:border-rose orange:border-orange purple:border-purple" />
             </div>
 
 
@@ -254,7 +254,7 @@ function Profile() {
                             <div className="relative text-white">
                                 <div className="flex gap-1 items-start">
                                     
-                                        <img src="../public/sam2.jpg" alt="" className="size-10 rounded-full cursor-pointer " />
+                                        <img src="/sam2.jpg" alt="" className="size-10 rounded-full cursor-pointer " />
                                     
                     
                                     
@@ -274,15 +274,10 @@ function Profile() {
 
 
                                 
-                                <div className=" flex justify-between mt-4 mx-13">
-                                    <div className="size-9 flex justify-center items-center cursor-pointer hover:bg-lime/10 lime:hover:bg-lime/10 orange:hover:bg-orange/10 indigo:hover:bg-indigo/10 rose:hover:bg-rose/10 red:hover:bg-red/10 yellow:hover:bg-yellow/10 purple:hover:bg-purple/10 rounded-full transition-all duration-100">
-                                    <FaRegComment className="size-5  text-lime lime:text-lime yellow:text-yellow indigo:text-indigo red:text-red rose:text-rose orange:text-orange purple:text-purple
+                                <div className=" flex justify-between mt-4 mb-8 mx-13">
                                     
-
-                                    "/>
-                                    </div>
                                     
-                                    <div className="absolute left-52 flex gap-0.5 items-center">
+                                    <div className="absolute left-25 flex gap-0.5 items-center">
                                         <div onClick={() => likeHandler(tweet._id)} className={`size-9 flex justify-center items-center cursor-pointer hover:bg-red-500/10 rounded-full transition-all duration-100 group `}>
 
                                             {
@@ -300,7 +295,7 @@ function Profile() {
                                     </div>
                                     
                                     
-                                    <div onClick={() => bookmarkhandler(tweet._id)}   className="absolute right-44  size-9 flex justify-center items-center cursor-pointer hover:bg-blue-500/10 rounded-full transition-all duration-100 group ">
+                                    <div onClick={() => bookmarkhandler(tweet._id)}   className="absolute right-56  size-9 flex justify-center items-center cursor-pointer hover:bg-blue-500/10 rounded-full transition-all duration-100 group ">
 
                                     {
                                         bookmark[tweet._id] ? (
