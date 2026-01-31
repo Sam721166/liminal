@@ -62,7 +62,7 @@ tweetRouter.delete("/delete/:id", async (req, res) => {
         return res.status(200).json({
             message: "tweet deleted successfully"
         })
-    } catch(err){
+    } catch(err){ 
         console.log("error while delete tweet", err);
     }
 })
@@ -71,7 +71,7 @@ tweetRouter.delete("/delete/:id", async (req, res) => {
 // like tweet
 tweetRouter.put("/like/:id", async (req, res) => {
     try{
-        const loggedInUser = req.body.id
+        const loggedInUser = req.body.id 
         const tweetId = req.params.id
         const tweet = await tweetModel.findById(tweetId)
         if(tweet.like.includes(loggedInUser)){

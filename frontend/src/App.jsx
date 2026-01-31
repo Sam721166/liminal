@@ -1,20 +1,16 @@
-import { useState } from 'react'
 import './App.css'
 import Body from './components/body'
-import {Toaster} from "react-hot-toast"
-
-
-
+import DesktopOnlyMessage from './components/DesktopOnlyMessage'
+import { Toaster } from "react-hot-toast"
 
 function App() {
-
   return (
-    <>
-      <div className=''>
+    <DesktopOnlyMessage>
+      <div>
         <Body />
         <Toaster />
       </div>
-    </>
+    </DesktopOnlyMessage>
   )
 }
 

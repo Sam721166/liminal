@@ -10,5 +10,5 @@ const ConectDb = async () => {
     }
 }
 
-export {ConectDb}
- 
+export {ConectDb} 
+  
