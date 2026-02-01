@@ -5,6 +5,9 @@ import { MdAccountCircle } from "react-icons/md";
 import { FaBookmark } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
 import { useState } from "react";
+import {  useEffect } from "react";
+
+import { useLocation } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
 import { getUser, getOtherUsers, getMyProfile } from "../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,6 +32,28 @@ function LeftSidebar() {
         document.documentElement.classList.add(newClick);
         setClick(newClick);
     };
+        const location = useLocation()
+
+        useEffect(() => {
+            // derive active item from current pathname so navigation (back/links) stays in sync
+            const path = location.pathname
+            let newClick = "home"
+            if (path === "/") newClick = "home"
+            else if (path.startsWith("/profile")) newClick = "profile"
+            else if (path === "/bookmark") newClick = "bookmark"
+            else if (path === "/settings") newClick = "settings"
+
+            document.documentElement.classList.remove(
+                "home",
+                "explore",
+                "notification",
+                "profile",
+                "bookmark",
+                "settings"
+            )
+            document.documentElement.classList.add(newClick)
+            setClick(newClick)
+        }, [location.pathname])
 
 
     const {user} = useSelector(store => store.user)
