@@ -28,12 +28,8 @@ dotenv.config()
 
 import ConectDb from "./db/db.js";
 
-// Don't crash the serverless function if DB fails at cold start (e.g. missing MONGO_URI on Vercel)
-try {
-    await ConectDb();
-} catch (err) {
-    console.error("DB init failed (app will still start):", err.message);
-}
+// Connect to DB without top-level await (avoids ERR_AMBIGUOUS_MODULE_SYNTAX on Vercel)
+ConectDb().catch((err) => console.error("DB init failed (app will still start):", err.message));
 
 app.use("/api/user", userRouter)
 app.use("/api/tweet",isLoggedIn, tweetRouter)
