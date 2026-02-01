@@ -26,7 +26,7 @@ function Login() {
         if(isLoggedin){
             try{
                 // login
-                const res = await axios.post("/api/user/login", {email, password})
+                const res = await axios.post("/api/user/login", {email, password}, { withCredentials: true })
                 console.log(res.data);
                 
                 dispatch(getUser(res?.data?.user))
@@ -43,7 +43,7 @@ function Login() {
         } else{
             try{
                 // signup
-                const res = await axios.post("/api/user/signup", {name, username, email, password})
+                const res = await axios.post("/api/user/signup", {name, username, email, password}, { withCredentials: true })
 
                 if(res.data.success){
                     toast.success(res.data.message)
