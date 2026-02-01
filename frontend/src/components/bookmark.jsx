@@ -96,7 +96,7 @@ function Bookmark() {
                     <div className="relative text-white">
                         <div className="flex gap-1 items-start">
                             
-                                <img src="../public/sam2.jpg" alt="" className="size-10 rounded-full cursor-pointer " />
+                                <img src="/sam2.jpg" alt="" className="size-10 rounded-full cursor-pointer " />
                             
             
                             
