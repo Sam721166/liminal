@@ -26,13 +26,20 @@ app.use(express.urlencoded({
 import dotenv from "dotenv"
 dotenv.config()
 
-import ConectDb from "./db/db.js";
+import connectDb from "./db/db.js";
 
-// Connect to DB without top-level await (avoids ERR_AMBIGUOUS_MODULE_SYNTAX on Vercel)
-ConectDb().catch((err) => console.error("DB init failed (app will still start):", err.message));
+// Ensure DB is connected before API handlers (reduces slow/failed first request in prod)
+app.use("/api", async (req, res, next) => {
+  try {
+    await connectDb();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.use("/api/user", userRouter)
-app.use("/api/tweet",isLoggedIn, tweetRouter)
+app.use("/api/tweet", isLoggedIn, tweetRouter)
 
 
 app.get("/", (req, res) => {

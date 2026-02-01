@@ -32,12 +32,16 @@ tweetRouter.post("/create", async (req, res) => {
 })
 
 
-// get tweet 
+// get tweet (sort in DB + limit for fast prod response)
 tweetRouter.get("/read", async (req, res) => {
-    const tweets = await tweetModel.find()
+    const tweets = await tweetModel
+        .find()
+        .sort({ createdAt: -1 })
+        .limit(200)
+        .lean()
     return res.status(200).json({
         success: true,
-        tweets: tweets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        tweets
     })
 })
 
@@ -94,20 +98,21 @@ tweetRouter.put("/like/:id", async (req, res) => {
 
 
 
-// get following tweet
+// get following tweet (single query with $in instead of N+1)
 tweetRouter.get("/alltweets/:id", async (req, res) => {
     try{
         const id = req.params.id
-        const loggedInUser = await userModel.findById(id)
-        const loggedInUserTweet = await tweetModel.find({userId:id})
-        const followingTweets = await Promise.all(loggedInUser.following.map((otherUsersId) => {
-            return tweetModel.find({userId:otherUsersId})
-        }))
-
-
+        const loggedInUser = await userModel.findById(id).select("following").lean()
+        if (!loggedInUser) return res.status(404).json({ success: false })
+        const userIds = [id, ...(loggedInUser.following || [])]
+        const tweet = await tweetModel
+            .find({ userId: { $in: userIds } })
+            .sort({ createdAt: -1 })
+            .limit(200)
+            .lean()
         return res.status(200).json({
-            success:true,
-            tweet: loggedInUserTweet.concat(...followingTweets).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            success: true,
+            tweet
         })
     } catch(err){
         console.log("error while getting all tweets", err)
@@ -116,16 +121,18 @@ tweetRouter.get("/alltweets/:id", async (req, res) => {
 
 
 
-// get only my tweet
+// get only my tweet (sort in DB)
 tweetRouter.get("/mytweet/:id", async (req, res) => {
     try{
         const id = req.params.id
-        const loggedInUser = await userModel.findById(id)
-        const loggedInUserTweet = await tweetModel.find({userId:id})
-
+        const tweet = await tweetModel
+            .find({ userId: id })
+            .sort({ createdAt: -1 })
+            .limit(200)
+            .lean()
         return res.status(200).json({
             success: true,
-            tweet: loggedInUserTweet.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            tweet
         })
     } catch(err){
         console.log("error while getting my tweet: ", err);

@@ -17,4 +17,8 @@ const tweetSchema = mongoose.Schema({
 
 }, {timestamps: true})
 
+// Indexes for fast queries in prod (find by userId, sort by createdAt)
+tweetSchema.index({ userId: 1, createdAt: -1 })
+tweetSchema.index({ createdAt: -1 })
+
 export default mongoose.model("tweet", tweetSchema)
