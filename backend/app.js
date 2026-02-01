@@ -27,12 +27,7 @@ app.get("/", (req, res) => {
     res.send("backend is running")
 })
 
-// Only start listening when running locally (not on Vercel serverless)
-if (!process.env.VERCEL) {
-    app.listen(3000, () => {
-        console.log("Server running on http://localhost:3000")
-    })
-}
 
-// Required for Vercel serverless: export the app so @vercel/node can invoke it
+
+
 export default app
