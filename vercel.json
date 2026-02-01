@@ -7,8 +7,8 @@
     }
   ],
   "functions": {
-    "backend/*.js": {
-      "runtime": "nodejs18.x"
+    "backend/app.js": {
+      "runtime": "nodejs20.x"
     }
   },
   "routes": [
