@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "npx nodemon backend/app.js"
+    "dev": "npx nodemon backend/app.js",
+    "start": "node backend/app.js"
   },
   "keywords": [],
   "author": "",
