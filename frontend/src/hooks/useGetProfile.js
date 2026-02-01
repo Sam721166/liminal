@@ -23,4 +23,5 @@ const useGetProfile = (id) => {
     
 }
 
+
 export default useGetProfile
