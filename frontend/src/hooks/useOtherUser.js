@@ -11,7 +11,7 @@ const useOtherUser = (id) => {
                 const res = await axios.get(`/api/user/otheruser/${id}`, {
                     withCredentials: true
                 })
-                dispatch(getOtherUsers(res.data.otherUser))
+                dispatch(getOtherUsers(res.data?.otherUser ?? []))
 
             } catch(err){
                 console.log("error while getting my profile", err);

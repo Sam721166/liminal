@@ -9,7 +9,7 @@ const tweetSlice = createSlice({
     },
     reducers:{
         getAllTweets:(state, action) => {
-            state.tweets = action.payload
+            state.tweets = Array.isArray(action.payload) ? action.payload : []
         },
         getRefresh:(state) => {
             state.refresh = !state.refresh

@@ -25,7 +25,7 @@ function Tweets({tweet}) {
 
 
 
-    const isLiked = tweet.like.includes(user?._id)
+    const isLiked = tweet?.like?.includes(user?._id)
 
     const isBookmarked = (tweetId) => {
       return user?.bookmark?.includes(tweetId)
@@ -82,8 +82,8 @@ function Tweets({tweet}) {
 
                 <Link to={`/profile/${tweet.userId[0]}`}>
                     <div className="flex gap-1 -mt-1">
-                    <h1 className="font-gothic text-md ml-2 ">{tweet?.userDetails[0]?.name}</h1>
-                    <p className="text-neutral-500 text-sm mt-0.5">@{tweet?.userDetails[0]?.username}</p>
+                    <h1 className="font-gothic text-md ml-2 ">{tweet?.userDetails?.[0]?.name ?? tweet?.userDetails?.name}</h1>
+                    <p className="text-neutral-500 text-sm mt-0.5">@{tweet?.userDetails?.[0]?.username ?? tweet?.userDetails?.username}</p>
                     <p className="text-neutral-500 text-xs mt-1.5">. {timeSince(tweet.createdAt)}</p>
                     </div>
                 </Link>
@@ -132,7 +132,7 @@ function Tweets({tweet}) {
             </div>
             
             {
-              user?._id === tweet?.userId[0] ? (
+              user?._id === tweet?.userId?.[0] ? (
                 <div onClick={() => deleteHandler(tweet._id)} className="absolute right-0 size-9 flex justify-center items-center cursor-pointer hover:bg-red-500/20 rounded-full transition-all duration-100 group ">
 
                   <MdDeleteOutline className="size-7  text-neutral-500 group-hover:text-red-500 transition-all duration-200 group-active:scale-90" />

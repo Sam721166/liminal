@@ -15,7 +15,7 @@ const useGetMyTweets = (id) => {
             const res = await axios.get(`/api/tweet/read`, {
                 withCredentials: true
             })
-            dispatch(getAllTweets(res.data.tweets))
+            dispatch(getAllTweets(res.data?.tweets ?? []))
             
         } catch(err){
             console.log("error while getting tweets", err);
@@ -31,7 +31,7 @@ const useGetMyTweets = (id) => {
             const res = await axios.get(`/api/tweet/alltweets/${user?._id}`, {
                 withCredentials: true
             })
-            dispatch(getAllTweets(res.data.tweet))
+            dispatch(getAllTweets(res.data?.tweet ?? []))
         } catch(err){
             console.log("error while getting following tweets in frontend");
         }

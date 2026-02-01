@@ -25,7 +25,7 @@ function Bookmark() {
     const [bookmarks, setBookmarks] = useState([])
     const dispatch = useDispatch()
 
-    const isLiked = (tweet) => tweet.like.includes(user?._id)
+    const isLiked = (tweet) => tweet?.like?.includes(user?._id)
 
     const isBookmarked = (tweetId) => {
       return user?.bookmark?.includes(tweetId)
@@ -38,7 +38,7 @@ function Bookmark() {
       const bookmarkHandler = async () => {
         try{
           const res = await axios.get(`/api/user/getbookmark/${user._id}`)
-          setBookmarks(res.data.tweet)
+          setBookmarks(res.data?.tweet ?? [])
         } catch(err){
           console.log("error while get bookmark frontend: ", err);
         }
@@ -132,7 +132,7 @@ function Bookmark() {
                                 </div>
 
                                 <div>
-                                    <p className="text-sm">{tweet.like.length}</p>
+                                    <p className="text-sm">{tweet?.like?.length ?? 0}</p>
                                 </div>
                             </div>
                             
@@ -140,7 +140,7 @@ function Bookmark() {
                             <div onClick={() => bookmarkhandler(tweet._id)}   className="absolute right-56  size-9 flex justify-center items-center cursor-pointer hover:bg-blue-500/10 rounded-full transition-all duration-100 group ">
 
                             {
-                                isBookmarked ? (
+                                isBookmarked(tweet._id) ? (
                                 <FaBookmark className="size-5 transition-all duration-200 text-blue-500  group-active:scale-90 "/>
                                 ) : (
                                 <FaRegBookmark className="size-5  text-neutral-500 group-hover:text-blue-500 transition-all duration-200 group-active:scale-90" />

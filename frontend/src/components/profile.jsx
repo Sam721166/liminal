@@ -34,7 +34,7 @@ function Profile() {
         const [editUsername, setEditUsername] = useState(profile?.username || "")
     
     
-        const isLiked = (tweet) => tweet.like.includes(user?._id)
+        const isLiked = (tweet) => tweet?.like?.includes(user?._id)
       
         const bookmarkhandler = (tweetId) => {
             setBookmark(prev => ({
@@ -86,7 +86,7 @@ function Profile() {
     const mytweet = async () => {
         try{
             const res = await axios.get(`/api/tweet/mytweet/${profile._id}`)
-            setMyTweet(res.data.tweet)
+            setMyTweet(res.data?.tweet ?? [])
         } catch(err){
             console.log("error while getting my tweet:", err);
         }
@@ -149,7 +149,7 @@ function Profile() {
 
             <div>
                 <h1 className='font-gothic text-lg'>{profile?.name}</h1>
-                <p className='text-neutral-500'>{profile?.tweetId.length} posts</p>
+                <p className='text-neutral-500'>{profile?.tweetId?.length ?? 0} posts</p>
             </div>
         </div>
 
@@ -172,7 +172,7 @@ function Profile() {
                 ) : (
                     <div>
                         <div>
-                        <p onClick={followHandler} className="absolute right-2 mr-2 mt-4 px-6 py-2 font-gothic text-black bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200 transition-all duration-200 cursor-pointer active:scale-98 rounded-lg text-lg ">{user.following.includes(id) ? "Follwing" : "Follow"}</p>
+                        <p onClick={followHandler} className="absolute right-2 mr-2 mt-4 px-6 py-2 font-gothic text-black bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200 transition-all duration-200 cursor-pointer active:scale-98 rounded-lg text-lg ">{user?.following?.includes(id) ? "Follwing" : "Follow"}</p>
                     </div>
                     </div>
                 )
@@ -242,7 +242,7 @@ function Profile() {
 
         <div className="text-white w-full px-5">
             {
-                myTweet.length === 0 ? (
+                (myTweet?.length ?? 0) === 0 ? (
                     <div>
                         <p className="text-neutral-500 text-center mt-5">
                             No tweets yet
@@ -259,8 +259,8 @@ function Profile() {
                     
                                     
                                         <div className="flex gap-1 -mt-1">
-                                        <h1 className="font-gothic text-md ml-2 text-white">{tweet?.userDetails[0]?.name}</h1>
-                                        <p className="text-neutral-500 text-sm mt-0.5">@{tweet?.userDetails[0]?.username}</p>
+                                        <h1 className="font-gothic text-md ml-2 text-white">{tweet?.userDetails?.[0]?.name ?? tweet?.userDetails?.name}</h1>
+                                        <p className="text-neutral-500 text-sm mt-0.5">@{tweet?.userDetails?.[0]?.username ?? tweet?.userDetails?.username}</p>
                                         <p className="text-neutral-500 text-xs mt-1.5">. {timeSince(tweet.createdAt)}</p>
                                         </div>
                                     
@@ -290,7 +290,7 @@ function Profile() {
                                         </div>
 
                                         <div>
-                                            <p className="text-sm">{tweet.like.length}</p>
+                                            <p className="text-sm">{tweet?.like?.length ?? 0}</p>
                                         </div>
                                     </div>
                                     
@@ -308,7 +308,7 @@ function Profile() {
                                     </div>
                                     
                                     {
-                                    user?._id === tweet?.userId[0] ? (
+                                    user?._id === tweet?.userId?.[0] ? (
                                         <div onClick={() => deleteHandler(tweet._id)} className="absolute right-0 size-9 flex justify-center items-center cursor-pointer hover:bg-red-500/20 rounded-full transition-all duration-100 group ">
 
                                         <MdDeleteOutline className="size-7  text-neutral-500 group-hover:text-red-500 transition-all duration-200 group-active:scale-90" />

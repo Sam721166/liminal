@@ -80,7 +80,7 @@ function RightSidebar({otherUsers}) {
                         e.preventDefault();     // stop Link navigation
                         e.stopPropagation();   // stop event bubbling
                         followHandler(otherUser._id);
-                      }}className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic rounded-lg px-3 py-1 bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200   cursor-pointer active:scale-98 mr-3">{user?.following.includes(otherUser._id) ? "Following" : "Follow"}</p>
+                      }}className="absolute right-0 top-5.5 transition-all duration-100 text-black font-gothic rounded-lg px-3 py-1 bg-lime lime:bg-lime yellow:bg-yellow indigo:bg-indigo red:bg-red rose:bg-rose orange:bg-orange purple:bg-purple hover:bg-lime-200 hover:lime:bg-lime-200 hover:yellow:bg-yellow-100 hover:indigo:bg-indigo-100 hover:red:bg-red-300 hover:rose:bg-rose-300 hover:orange:bg-orange-200 hover:purple:bg-purple-200   cursor-pointer active:scale-98 mr-3">{user?.following?.includes(otherUser._id) ? "Following" : "Follow"}</p>
                     </div>
                   </div>
                 </Link>

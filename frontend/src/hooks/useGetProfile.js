@@ -11,7 +11,7 @@ const useGetProfile = (id) => {
                 const res = await axios.get(`/api/user/profile/${id}`, {
                     withCredentials: true
                 })
-                dispatch(getMyProfile(res.data.user))
+                if (res.data?.user) dispatch(getMyProfile(res.data.user))
 
             } catch(err){
                 console.log("error while getting my profile", err);
