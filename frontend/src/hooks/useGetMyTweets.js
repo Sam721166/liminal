@@ -8,40 +8,45 @@ const useGetMyTweets = (id) => {
     const {refresh, isActive} = useSelector(store => store.tweets)
     const {user} = useSelector(store => store.user)
 
+ 
+        
     const fetchMyTweets = async () => {
         try{
             const res = await axios.get(`/api/tweet/read`, {
                 withCredentials: true
             })
-            const list = res.data?.tweets ?? res.data?.tweet ?? []
-            dispatch(getAllTweets(Array.isArray(list) ? list : []))
+            dispatch(getAllTweets(res.data?.tweets ?? []))
+            
         } catch(err){
             console.log("error while getting tweets", err);
-            dispatch(getAllTweets([]))
-        }
+        }   
     }
 
+    
     const followingTweets = async () => {
         try{
-            if (!user?._id) return
-            const res = await axios.get(`/api/tweet/alltweets/${user._id}`, {
+            if (!user?._id) return  
+
+            axios.defaults.withCredentials = true
+            const res = await axios.get(`/api/tweet/alltweets/${user?._id}`, {
                 withCredentials: true
             })
-            const list = res.data?.tweet ?? res.data?.tweets ?? []
-            dispatch(getAllTweets(Array.isArray(list) ? list : []))
+            dispatch(getAllTweets(res.data?.tweet ?? []))
         } catch(err){
-            console.log("error while getting following tweets in frontend", err);
-            dispatch(getAllTweets([]))
+            console.log("error while getting following tweets in frontend");
         }
     }
 
+
     useEffect(() => {
-        if (isActive) {
+        if(isActive){
             fetchMyTweets()
-        } else {
-            if (user?._id) followingTweets()
+        } else{
+            followingTweets()
         }
-    }, [id, user?._id, user?.following?.length, refresh, isActive])
+        
+        
+    }, [id, user?.following?.length, refresh, isActive])
     
 }
 

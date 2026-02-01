@@ -34,16 +34,11 @@ tweetRouter.post("/create", async (req, res) => {
 
 // get tweet 
 tweetRouter.get("/read", async (req, res) => {
-    try {
-        const tweets = await tweetModel.find()
-        return res.status(200).json({
-            success: true,
-            tweets: (tweets || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        })
-    } catch (err) {
-        console.log("Error while getting tweets", err)
-        return res.status(500).json({ success: false, tweets: [] })
-    }
+    const tweets = await tweetModel.find()
+    return res.status(200).json({
+        success: true,
+        tweets: tweets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    })
 })
 
 
@@ -104,12 +99,8 @@ tweetRouter.get("/alltweets/:id", async (req, res) => {
     try{
         const id = req.params.id
         const loggedInUser = await userModel.findById(id)
-        if (!loggedInUser) {
-            return res.status(200).json({ success: true, tweet: [] })
-        }
-        const following = loggedInUser.following || []
         const loggedInUserTweet = await tweetModel.find({userId:id})
-        const followingTweets = await Promise.all(following.map((otherUsersId) => {
+        const followingTweets = await Promise.all(loggedInUser.following.map((otherUsersId) => {
             return tweetModel.find({userId:otherUsersId})
         }))
 
@@ -120,7 +111,6 @@ tweetRouter.get("/alltweets/:id", async (req, res) => {
         })
     } catch(err){
         console.log("error while getting all tweets", err)
-        return res.status(500).json({ success: false, tweet: [] })
     }
 })
 
