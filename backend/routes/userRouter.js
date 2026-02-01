@@ -5,6 +5,12 @@ import tweetModel from "../model/tweet.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
+// Cross-origin (e.g. localhost → Vercel API): cookie must have sameSite: 'none', secure: true so browser sends it
+const isProduction = !!process.env.VERCEL
+const cookieOptions = {
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+    ...(isProduction && { sameSite: "none", secure: true }),
+}
 
 // signup
 userRouter.post("/signup", async (req, res) => {
@@ -40,7 +46,7 @@ userRouter.post("/signup", async (req, res) => {
             password: hash
         })
         const token = jwt.sign({email: req.body.email}, process.env.JWT_SECRET)
-        res.cookie("token", token)
+        res.cookie("token", token, cookieOptions)
         return res.status(201).json({
             success: true,
             message: "Account created successfully"
@@ -70,7 +76,7 @@ const {email, password} = req.body
     bcrypt.compare(password, user.password, (err, result) => {
         if(result){
             const token = jwt.sign({email}, process.env.JWT_SECRET, {expiresIn:"1d"})
-            res.cookie("token", token, {expiresIn:"1d"})
+            res.cookie("token", token, cookieOptions)
             return res.status(200).json({
                 success: true,
                 user: user,
@@ -88,7 +94,7 @@ const {email, password} = req.body
 
 // logout
 userRouter.post("/logout", (req, res) => {
-    res.cookie("token", "")
+    res.clearCookie("token", isProduction ? { sameSite: "none", secure: true } : {})
     return res.status(200).json({
         success: true,
         message: "logout successful"

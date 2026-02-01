@@ -8,8 +8,9 @@ import axios from "axios"
 
 import { store, persistor } from "./redux/store";
 
-// Production: set VITE_API_URL in Vercel to your backend URL (e.g. https://your-api.vercel.app)
-if (import.meta.env.VITE_API_URL) {
+// In dev: no baseURL so requests go to same origin → Vite proxy → local backend (cookies work).
+// In prod: set VITE_API_URL in Vercel so requests go to your deployed API.
+if (import.meta.env.PROD && import.meta.env.VITE_API_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 }
 axios.defaults.withCredentials = true;
