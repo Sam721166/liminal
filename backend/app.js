@@ -3,9 +3,9 @@ import cors from "cors";
 
 const app = express();
 
-// CORS: use specific origin so credentials (cookies) work. "*" cannot be used with credentials.
+// CORS: specific origin for credentials. On Vercel, use FRONTEND_URL or reflect request origin.
 const corsConfig = {
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: process.env.FRONTEND_URL || (process.env.VERCEL ? true : "http://localhost:5173"),
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
 };
@@ -27,7 +27,13 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import ConectDb from "./db/db.js";
-await ConectDb()
+
+// Don't crash the serverless function if DB fails at cold start (e.g. missing MONGO_URI on Vercel)
+try {
+    await ConectDb();
+} catch (err) {
+    console.error("DB init failed (app will still start):", err.message);
+}
 
 app.use("/api/user", userRouter)
 app.use("/api/tweet",isLoggedIn, tweetRouter)
