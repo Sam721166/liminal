@@ -155,7 +155,7 @@ function Profile() {
 
 
         <div>
-            <img src="https://pbs.twimg.com/profile_banners/1869389793748013057/1767368816/1500x500" alt="" />
+            <img src="/banner2.jpg" alt="" />
         </div>
 
         <div className="relative px-5 h-20">
