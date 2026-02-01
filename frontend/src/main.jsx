@@ -8,7 +8,11 @@ import axios from "axios"
 
 import { store, persistor } from "./redux/store";
 
-axios.defaults.withCredentials = true
+// Production: set VITE_API_URL in Vercel to your backend URL (e.g. https://your-api.vercel.app)
+if (import.meta.env.VITE_API_URL) {
+  axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+}
+axios.defaults.withCredentials = true;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
