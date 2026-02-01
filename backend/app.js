@@ -22,7 +22,7 @@ await ConectDb()
 app.use("/api/user", userRouter)
 app.use("/api/tweet",isLoggedIn, tweetRouter)
 
-// Health check / root route (fix: 3000 was wrong - that's a port, not a path)
+
 app.get("/", (req, res) => {
     res.send("backend is running")
 })
