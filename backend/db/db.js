@@ -1,15 +1,23 @@
 import mongoose from "mongoose";
 
-const ConectDb = async () => {
-    try{
-        await mongoose.connect(process.env.MONGO_URI)
-        console.log("MongoDB is conected");
-        
-    } catch(err){
-        console.log("MongoDB connection error: ", err);   
-    }
-}
+let isConnected = false;
 
+const connectDb = async () => {
+  if (isConnected) {
+    return;
+  }
 
-export {ConectDb} 
-  
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      dbName: "threadify", 
+    });
+
+    isConnected = true;
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("MongoDB connection error:", err.message);
+    throw err; 
+  }
+};
+
+export default connectDb;

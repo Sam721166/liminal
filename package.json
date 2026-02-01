@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  
   "scripts": {
     "dev": "npx nodemon backend/app.js",
     "start": "node backend/app.js"

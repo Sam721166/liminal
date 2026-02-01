@@ -16,12 +16,12 @@ app.use(express.urlencoded({
 import dotenv from "dotenv"
 dotenv.config()
 
-import {ConectDb} from "./db/db.js";
-ConectDb()
+import ConectDb from "./db/db.js";
+await ConectDb()
 
 app.use("/api/user", userRouter)
 app.use("/api/tweet",isLoggedIn, tweetRouter)
 
-app.listen(3000, (req, res) => {
-    console.log("server is running on port 3000");
+app.get(3000, (req, res) => {
+    res.send("backend is running")
 })
