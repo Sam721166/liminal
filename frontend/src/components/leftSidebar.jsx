@@ -144,7 +144,7 @@ function LeftSidebar() {
 
         <div>
            
-            <div onClick={logoutHandler} className="hover:bg-neutral-700 bg-neutral-800 transition-all duration-100 active:scale-99 rounded-xl p-5 h-16 flex items-center mt-33 gap-3 cursor-pointer">
+            <div onClick={logoutHandler} className="hover:bg-neutral-700 bg-neutral-800 transition-all duration-100 active:scale-99 rounded-xl p-5 h-16 flex items-center mt-30 gap-3 cursor-pointer">
                 <FiLogOut className="size-8 text-red-500  "/>
                 <h1 className="text-[23px] font-gothic text-red-500"  >Logout</h1>
             </div>
