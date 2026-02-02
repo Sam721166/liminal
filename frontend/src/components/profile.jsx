@@ -231,8 +231,6 @@ function Profile() {
         <div className="text-white px-5 py-2 border-b-neutral-700 border border-t-0 border-x-0 pb-5">
             <h1 className="font-gothic text-2xl ">{profile?.name}</h1>
             <p className="text-neutral-400">@{profile?.username}</p>
-
-            <p className="mt-5">18. learning cool stuffs</p>
         </div>
 
 
