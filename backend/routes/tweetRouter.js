@@ -37,7 +37,7 @@ tweetRouter.get("/read", async (req, res) => {
     const tweets = await tweetModel
         .find()
         .sort({ createdAt: -1 })
-        .limit(200)
+        .limit(20)
         .lean()
     return res.status(200).json({
         success: true,

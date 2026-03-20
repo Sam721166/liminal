@@ -106,7 +106,7 @@ function Login() {
                                 placeholder="Name"
                                 type="text"
                                 className=" absolute  text-white outline-none border-none border-2 mb-10 rounded-xl w-100 h-14 placeholder:text-neutral-600 font-gothic px-5 text-lg "
-                        />
+                            />
                         </div>
 
                         <div className=" relative border-2 border-neutral-700 focus-within:border-lime bg-neutral-800  w-110 rounded-xl h-15 mb-5">
